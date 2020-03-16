@@ -1,5 +1,4 @@
 import React from 'react';
-import './WelcomeBody.css';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -7,7 +6,7 @@ import FormControl from 'react-bootstrap/FormControl';
 
 function WelcomeBody() {
   return (
-    <div className="WelcomeBody">
+    <div className="WelcomeBody" align="center">
       <h1>Welcome to SalaryCloud</h1>
       
       <Dropdown>
@@ -16,6 +15,7 @@ function WelcomeBody() {
         </Dropdown.Toggle>
 
         <Dropdown.Menu className="text-center">
+          <div className="mx-2">
             <InputGroup className="mb-3">
               <FormControl
                 input type="email"
@@ -43,9 +43,11 @@ function WelcomeBody() {
               />
             </InputGroup>
 
-            <Button variant="primary">
+            <Button variant="primary" onClick={() => {console.log('Printing $$$')}}>
               Submit
             </Button>{' '}
+          </div>
+            
 
         </Dropdown.Menu>
       </Dropdown>
