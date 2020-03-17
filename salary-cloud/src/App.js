@@ -3,6 +3,7 @@ import './App.css';
 
 import Header from './components/Header';
 import Body from './components/Body';
+import Footer from './components/footer/Footer'
 
 class App extends React.Component {
   constructor() {
@@ -12,12 +13,13 @@ class App extends React.Component {
       loggedIn: false,
     }
   }
-  
+
   render() {
     return (
       <div className="App">
         <Header />
         <Body currentPath={this.state.currentPath}/>
+        <Footer />
       </div>
     );
   }

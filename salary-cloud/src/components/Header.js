@@ -7,7 +7,7 @@ function Header() {
     <div className="Header">
         <Navbar className="border-bottom border-success" bg="light" variant="light">
           <Navbar.Brand className="mr-auto" href="/">
-            <h1> Salary Cloud </h1>
+            <h1> SalaryCloud </h1>
           </Navbar.Brand>
 
           <Nav className="ml-auto">
