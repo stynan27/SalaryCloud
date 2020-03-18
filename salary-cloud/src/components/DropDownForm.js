@@ -2,6 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
+import { Link } from 'react-router-dom';
 
 function DropDownForm() {
     return (
@@ -33,9 +34,11 @@ function DropDownForm() {
               />
             </InputGroup>
 
-            <Button variant="primary" onClick={() => {console.log('Printing $$$')}}>
-              Submit
-            </Button>{' '}
+            <Link to='/CreateAccount'>
+              <Button variant="primary" onClick={() => {console.log('Printing $$$')}}>
+                Submit
+              </Button>{' '}
+            </Link>
           </div>
     );
 }

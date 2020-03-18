@@ -1,26 +1,33 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Header from './components/Header';
-import Body from './components/Body';
+import WelcomeBody from './components/WelcomeBody';
+import CreateAccountBody from './components/CreateAccountBody';
 import Footer from './components/footer/Footer'
 
 class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      currentPath: "Welcome",
       loggedIn: false,
     }
   }
 
   render() {
     return (
-      <div className="App">
-        <Header />
-        <Body currentPath={this.state.currentPath}/>
-        <Footer />
-      </div>
+      <Router>
+        <div className="App">
+          <Header />
+            <Switch>
+              <Route path='/' exact component={WelcomeBody}/>
+              <Route path='/Welcome' exact component={WelcomeBody}/>
+              <Route path='/CreateAccount' exact component={CreateAccountBody}/>
+            </Switch>
+          <Footer />
+        </div>
+      </Router>
     );
   }
 }
