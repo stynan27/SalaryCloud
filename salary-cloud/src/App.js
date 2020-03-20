@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Header from './components/Header';
 import WelcomeBody from './components/WelcomeBody';
-import ProfileSettingsBody from './components/ProfileSettingsBody';
+import ProfileSettingsBody from './components/ProfileSettings/ProfileSettingsBody';
 import Footer from './components/footer/Footer'
 
 class App extends React.Component {
