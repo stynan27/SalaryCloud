@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Header from './components/Header';
 import WelcomeBody from './components/WelcomeBody';
-import CreateAccountBody from './components/CreateAccountBody';
+import ProfileSettingsBody from './components/ProfileSettingsBody';
 import Footer from './components/footer/Footer'
 
 class App extends React.Component {
@@ -23,7 +23,7 @@ class App extends React.Component {
             <Switch>
               <Route path='/' exact component={WelcomeBody}/>
               <Route path='/Welcome' exact component={WelcomeBody}/>
-              <Route path='/CreateAccount' exact component={CreateAccountBody}/>
+              <Route path='/ProfileSettings' exact component={ProfileSettingsBody}/>
             </Switch>
           <Footer />
         </div>

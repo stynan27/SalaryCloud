@@ -34,7 +34,7 @@ function DropDownForm() {
               />
             </InputGroup>
 
-            <Link to='/CreateAccount'>
+            <Link to='/ProfileSettings'>
               <Button variant="primary" onClick={() => {console.log('Printing $$$')}}>
                 Submit
               </Button>{' '}
