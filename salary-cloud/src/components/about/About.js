@@ -5,9 +5,9 @@ import ListGroup from 'react-bootstrap/ListGroup';
 
 function About() {
   return(
-    <div className="container-fluid mt-2 mb-2 pl-5 pr-5 overflow-auto">
+    <div className="main container-fluid mt-2 mb-2 pl-5 pr-5">
       <div className="row">
-        <div className="col">
+        <div className="col border-right">
           <h1 className="h1"> Our Story... </h1>
           <Image src={"/theBoys.jpg"} alt="theBoys" fluid thumbnail/>
         </div>
@@ -19,9 +19,9 @@ function About() {
             lifelong friends. Seamus graduated Buffalo University in 2019
             with a degree in Computer Science and Tomfoolery. Yesu graduated
             Colgate University the same year with a Bachelors in Computer
-            Science and Japanese. Both having experienced the trails
+            Science and Japanese. Both having experienced the trails of
             job hunting, the pair decided to put their technical expertise and
-            dreams for the greater good to build SalaryCloud.
+            dreams for the greater good to create SalaryCloud.
           </p>
           <h2 className="h2"> One Dream </h2>
           <p>
@@ -34,7 +34,7 @@ function About() {
               Instill in the worker confidence in their Salary Negotiations by
               automatically calculating the minimum and recommended Salary. We
               will use our data and resources to suggest Salaries the employee
-              should earn based on basics and dynamic factors.
+              should earn based on basic and dynamic factors.
               Basic factors include current salary, years of experience,
               certifications, and salary compared to other workers in the same
               company. Dynamic factors include job location, cost of living,
@@ -51,7 +51,8 @@ function About() {
           <p>
             Our team consists of just Yesu and Seamus. SalaryCloud is not a
             legally registered entity, and does therefore claim no liability
-            in any damages claimed to either person, name, entity, reputation.
+            in any damages claimed to either person, name, entity, nor
+            reputation.
           </p>
         </div>
       </div>

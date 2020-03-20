@@ -27,8 +27,8 @@ class App extends React.Component {
               <Route path='/CreateAccount' exact component={CreateAccountBody}/>
               <Route path='/About' exact component={About}/>
             </Switch>
-          <Footer />
         </div>
+        <Footer />
       </Router>
     );
   }

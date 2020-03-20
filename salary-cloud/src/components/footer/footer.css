@@ -1,6 +1,5 @@
 footer {
-  border-top: solid;
-  position: static;
+  position: relative;
   bottom: 0;
   padding-top: 1rem;
 }

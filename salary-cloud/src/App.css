@@ -13,3 +13,10 @@ a {
   color: #333333;
   text-decoration: none;
 }
+
+html, body {
+  height: 100%;
+}
+.App {
+  height: inherit;
+}
