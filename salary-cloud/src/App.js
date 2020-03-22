@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/Header';
 import WelcomeBody from './components/WelcomeBody';
 import ProfileSettingsBody from './components/ProfileSettings/ProfileSettingsBody';
-import Footer from './components/footer/Footer'
+import Footer from './components/footer/Footer';
+import About from './components/about/About';
 
 class App extends React.Component {
   constructor() {
@@ -24,9 +25,10 @@ class App extends React.Component {
               <Route path='/' exact component={WelcomeBody}/>
               <Route path='/Welcome' exact component={WelcomeBody}/>
               <Route path='/ProfileSettings' exact component={ProfileSettingsBody}/>
+              <Route path='/About' exact component={About}/>
             </Switch>
-          <Footer />
         </div>
+        <Footer />
       </Router>
     );
   }
