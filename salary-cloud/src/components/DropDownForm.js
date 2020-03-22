@@ -35,7 +35,7 @@ function DropDownForm() {
             </InputGroup>
 
             <Link to='/ProfileSettings'>
-              <Button variant="primary" onClick={() => {console.log('Printing $$$')}}>
+              <Button variant="primary">
                 Submit
               </Button>{' '}
             </Link>
