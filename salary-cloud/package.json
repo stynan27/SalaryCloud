@@ -27,6 +27,9 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
+    "prestart-mongo-service-ubuntu": "systemctl start mongod",
+    "prestart-mongo-service-darwin": "mongod --config /usr/local/etc/mongod.conf --fork",
+    "populate-users-collection": "node server/db/populateUsersCollection.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
