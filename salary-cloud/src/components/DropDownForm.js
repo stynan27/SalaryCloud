@@ -43,6 +43,7 @@ class DropDownForm extends React.Component {
           passwordConfirmation: ''
         });
       });
+      // TODO: REDIRECT TO ProfileSettings Page
     }
 
   }
@@ -54,7 +55,7 @@ class DropDownForm extends React.Component {
       <div className="mx-2">
           <InputGroup className="mb-3">
             <FormControl
-              input type="email"
+              type="email"
               placeholder="Email"
               aria-label="Email"
               aria-describedby="email-input"
@@ -65,7 +66,7 @@ class DropDownForm extends React.Component {
 
           <InputGroup className="mb-3">
             <FormControl
-              input type="password"
+              type="password"
               placeholder="Password"
               aria-label="Password"
               aria-describedby="password-input"
@@ -76,7 +77,7 @@ class DropDownForm extends React.Component {
 
           <InputGroup className="mb-3">
             <FormControl
-              input type="password"
+              type="password"
               placeholder="Confirm Password"
               aria-label="Confirm Password"
               aria-describedby="confirmation-input"
@@ -85,11 +86,9 @@ class DropDownForm extends React.Component {
             />
           </InputGroup>
 
-          <Link to='/ProfileSettings'>
             <Button variant="primary" onClick={this.handleCreateUser}>
               Submit
             </Button>{' '}
-          </Link>
         </div>
     );
 

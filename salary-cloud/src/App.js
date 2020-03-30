@@ -9,8 +9,8 @@ import Footer from './components/footer/Footer';
 import About from './components/about/About';
 
 class App extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       loggedIn: false,
     }
