@@ -54,4 +54,4 @@ console.log(postUserData(userData["user1"]));
 console.log(postUserData(userData["user2"]));
 console.log(postUserData(userData["user3"]) + "\n");
 
-process.exit();
+console.log("Users population complete, please exit the process...\n");
