@@ -2,13 +2,14 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import api from '../api/api';
 
 class DropDownForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      toProfileSettings: false,
       email: '',
       password: '',
       passwordConfirmation: ''
@@ -38,17 +39,21 @@ class DropDownForm extends React.Component {
       await api.createUser({email, hash: password}).then(response => {
         window.alert("User created!");
         this.setState({
+          toProfileSettings: true,
           email: '',
           password: '',
           passwordConfirmation: ''
         });
       });
-      // TODO: REDIRECT TO ProfileSettings Page
     }
 
   }
 
   render () {
+    if (this.state.toProfileSettings === true) {
+      return <Redirect to="/ProfileSettings" />
+    }
+
     const {email, password, passwordConfirmation} = this.state;
 
     return(
