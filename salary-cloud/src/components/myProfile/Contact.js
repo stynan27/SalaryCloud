@@ -1,5 +1,5 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Col';
 import Col from 'react-bootstrap/Col';
 
@@ -13,16 +13,14 @@ class Contact extends React.Component {
 
     render(){
         return (
-            <Container className="Contact">
-                <Row>
-                    <Col className="mt-1" style={{textAlign: "left",}}>
-                        <h3>Contact</h3>
-                    </Col>
-                    <Col className="mt-1" style={{textAlign: "right",}}>
-                        <h3>+</h3>
-                    </Col>
-                </Row>
-            </Container>
+            <Row className="row justify-content-center">
+                <Col className="" style={{textAlign: "left",}}>
+                    <h3>Contact Information</h3>
+                </Col>
+                <Col className="justidfy-content-right my-1" style={{textAlign: "right",}}>
+                    <Button style={{borderRadius: "50%",}}>+</Button>
+                </Col>
+            </Row>
         );
     }
 }
