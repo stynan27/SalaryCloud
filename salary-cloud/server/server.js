@@ -7,6 +7,7 @@ const port = 8000;
 
 const db = require('./db/database');
 const userRouter = require('./routes/user-router');
+const anonUserRouter = require('./routes/anon-user-router');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
@@ -23,5 +24,6 @@ app.get('/', (request, response) => {
 });
 
 app.use('/users', userRouter);
+app.use('/anon-users', anonUserRouter);
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
