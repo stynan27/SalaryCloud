@@ -21,7 +21,7 @@ createAnonUser = (req, res) => {
         .then(() => {
             return res.status(201).json({
                 success: true,
-                id: anonUser._id,
+                id: anonUser.anonId,
                 message: 'Anonymous user entry created!',
             });
         })

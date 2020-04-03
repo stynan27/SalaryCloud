@@ -4,6 +4,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import { Redirect } from 'react-router-dom';
 import usersApi from '../api/users-api';
+import anonUsersApi from '../api/anon-users-api';
 
 class DropDownForm extends React.Component {
   constructor(props) {
@@ -37,13 +38,15 @@ class DropDownForm extends React.Component {
       window.alert("Passwords don't match!");
     } else {
       await usersApi.createUser({email, hash: password}).then(response => {
-        window.alert("User created!");
-        this.setState({
-          toProfileSettings: true,
-          email: '',
-          password: '',
-          passwordConfirmation: ''
-        });
+        anonUsersApi.createAnonUser({anonId: response.data.id}).then(reponse => {
+          window.alert("User created!");
+          this.setState({
+            toProfileSettings: true,
+            email: '',
+            password: '',
+            passwordConfirmation: ''
+          });
+        })
       });
     }
 
