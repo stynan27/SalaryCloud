@@ -57,8 +57,12 @@ function postUserData(data) {
     const user = new User(data);
     user.save()
     .catch(error => {
+      if (error.code == 11000) {
+        console.log("User with email: " + user.email + " already exists, and cannot be duplicated.\n");
+      } else {
         console.log("User with email: " + user.email + " was not created successfully!\n");
-        return -1;
+      }
+      return -1;
     });
     console.log("User with email: " + user.email + " was stored successfully!\n");
     return user._id;
@@ -68,6 +72,9 @@ function postAnonUserData(data) {
     const anonUser = new AnonUser(data);
     anonUser.save()
     .catch(error => {
+      if (error.code === 11000) {
+        console.log("Anonymous user with id: " + anonUser.anonId + " already exists\n");
+      }
         console.log("Anonymous user with id: " + anonUser.anonId + " was not stored successfully!\n");
         return -1;
     });
@@ -75,10 +82,15 @@ function postAnonUserData(data) {
     return anonUser.anonId;
 };
 
-console.log("Creating users collection...\n");
+console.log("Checking if users collection exists...\n");
+if ("users" in db.collections){
+  console.log("users collection already exists! Creating anyway...\n");
+} else {
+  console.log("Creating users collection...\n");
+}
 
 db.createCollection( "users", {
-    validator: { 
+    validator: {
         $jsonSchema: {
             bsonType: "object",
             required: [ "email", "hash" ],
@@ -94,14 +106,17 @@ db.createCollection( "users", {
     }
 })
 .catch(error => {
-    console.log(error);
     return "Users collection not created successfully!";
 });
 
-console.log("Creating anonymous users collection...\n");
+if ("anon-users" in db.collections){
+  console.log("anon-users collection already exists! Creating anyway...\n");
+} else {
+  console.log("Creating anonymous users collection...\n");
+}
 
 db.createCollection( "anon-users", {
-    validator: { 
+    validator: {
         $jsonSchema: {
             bsonType: "object",
             required: [ "anonId"],
@@ -122,11 +137,11 @@ db.createCollection( "anon-users", {
                     bsonType : "string",
                 },
                 location: {
-                    city: { 
-                        bsonType : "string" 
+                    city: {
+                        bsonType : "string"
                     },
-                    state: { 
-                        bsonType : "string" 
+                    state: {
+                        bsonType : "string"
                     },
                 },
                 yearsOfExp: {
@@ -137,7 +152,6 @@ db.createCollection( "anon-users", {
     }
 })
 .catch(error => {
-    console.log(error);
     return "Anonymous collection not created successfully!";
 });
 
@@ -159,6 +173,6 @@ if (anonUserData['user1'].anonId === -1 || anonUserData['user2'].anonId === -1 |
     if (exitCode1 === -1 || exitCode2 === -1 || exitCode3 === -1) {
         console.log("Creation failed, please exit the process...\n");
     } else {
-        console.log("Users population complete, please exit the process...\n"); 
+        console.log("Users population complete, please exit the process...\n");
     }
 }
