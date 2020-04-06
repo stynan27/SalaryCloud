@@ -18,5 +18,5 @@ html, body {
   height: 100%;
 }
 .App {
-  height: inherit;
+  height: auto;
 }

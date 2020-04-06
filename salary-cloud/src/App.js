@@ -29,8 +29,9 @@ class App extends React.Component {
               <Route path='/MyProfile' exact component={MyProfileBody}/>
               <Route path='/About' exact component={About}/>
             </Switch>
+            <Footer />
+
         </div>
-        <Footer />
       </Router>
     );
   }

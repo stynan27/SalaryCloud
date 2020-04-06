@@ -69,9 +69,17 @@ function ProfileSettingsForm() {
                     </Form.Group>
                 </div>
 
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
+                <div className="mt-1 mb-1">
+                  <Button variant="primary" type="submit">
+                      Submit
+                  </Button>
+                </div>
+
+                <div className="mt-1 mb-1">
+                  <Button variant="danger" type="input">
+                    Delete Account
+                  </Button>
+                </div>
             </Form>
         </div>
     );
