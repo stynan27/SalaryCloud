@@ -6,7 +6,7 @@ import ProfileSettingsForm from './ProfileSettingsForm';
 
 function ProfileSettingsBody() {
   return (
-    <Container className="ProfileSettings"  align="center">
+    <Container className="ProfileSettings mt-2 mb-2"  align="center" fluid>
       <Row className="justify-content-center">
         <h1 className="mt-3">Profile Settings</h1>
       </Row>
