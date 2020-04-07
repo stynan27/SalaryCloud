@@ -1,4 +1,5 @@
 const User = require('../db/models/user-model');
+const bcrypt = require('bcrypt');
 
 createUser = (req, res) => {
     const body = req.body;
@@ -16,57 +17,79 @@ createUser = (req, res) => {
         return res.status(400).json({ success: false, error: err });
     }
 
-    user
-        .save()
-        .then(() => {
-            return res.status(201).json({
-                success: true,
-                id: user._id,
-                message: 'User created!',
+    bcrypt.hash(user.hash, 18, function(err, hash) {
+        user.hash = hash;
+        user
+            .save()
+            .then(() => {
+                return res.status(201).json({
+                    success: true,
+                    id: user._id,
+                    message: 'User created!',
+                });
+            })
+            .catch(error => {
+                return res.status(400).json({
+                    error,
+                    message: 'User not created!',
+                });
             });
-        })
-        .catch(error => {
-            return res.status(400).json({
-                error,
-                message: 'User not created!',
-            });
-        });
+    });
 }
 
-updateUser = async (req, res) => {
+updateUserEmail = async (req, res) => {
     const body = req.body;
 
     if (!body) {
         return res.status(400).json({
             success: false,
-            error: 'You must provide a user body to update',
+            error: 'You must provide a body to update a user email',
         });
     }
 
-    User.findOne({ _id: req.params.id }, (err, user) => {
+    User.updateOne({_id: req.params.id}, {
+        email: body.email, 
+    }, (err, user) => {
         if (err) {
             return res.status(404).json({
                 err,
-                message: 'User not found!',
+                message: 'Error updating user email!',
             });
         }
-        user.email = body.email;
-        user.hash = body.hash;
-        user
-            .save()
-            .then(() => {
-                return res.status(200).json({
-                    success: true,
-                    id: user._id,
-                    message: 'User updated!',
-                });
-            })
-            .catch(error => {
+        return res.status(200).json({
+            success: true,
+            email: user.email,
+            message: 'User email updated!',
+        });
+    });
+}
+
+updateUserPassword = async (req, res) => {
+    const body = req.body;
+
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a body to update a user password',
+        });
+    }
+
+    bcrypt.hash(body.hash, 18, function(err, newHash) {
+        User.updateOne({_id: req.params.id}, {
+            hash: newHash, 
+        }, (err, user) => {
+            if (err) {
                 return res.status(404).json({
-                    error,
-                    message: 'User not updated!',
+                    err,
+                    message: 'Error updating user password!',
                 });
+            }
+            return res.status(200).json({
+                success: true,
+                email: user.email,
+                message: 'User password updated!',
             });
+        });
     });
 }
 
@@ -117,7 +140,8 @@ getUsers = async (req, res) => {
 
 module.exports = {
     createUser,
-    updateUser,
+    updateUserEmail,
+    updateUserPassword,
     deleteUser,
     getUserById,
     getUsers,
