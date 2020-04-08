@@ -21,7 +21,7 @@ function About() {
             Colgate University the same year with a Bachelors in Computer
             Science and Japanese. Both having experienced the trails of
             job hunting, the pair decided to put their technical expertise and
-            dreams for the greater good to create SalaryCloud.
+            dreams to use for the greater good to create SalaryCloud.
           </p>
           <h2 className="h2"> One Dream </h2>
           <p>
