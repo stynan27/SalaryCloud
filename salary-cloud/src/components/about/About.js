@@ -5,7 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 
 function About() {
   return(
-    <div className="main container-fluid mt-2 mb-2 pl-5 pr-5">
+    <div className="container-fluid mt-2 mb-2 pl-5 pr-5 h-auto">
       <div className="row">
         <div className="col border-right">
           <h1 className="h1"> Our Story... </h1>
