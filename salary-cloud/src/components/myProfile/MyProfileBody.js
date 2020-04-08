@@ -15,7 +15,7 @@ import './myProfile.css';
 function MyProfileBody() {
 
     return (
-        <Container className="ProfileBody"  align="center" fluid={true}>
+        <Container className="ProfileBody mt-2 mb-3"  align="center" fluid={true}>
             <Row className="mt-3 justify-content-center contentContainer boxShadow">
                 <ProfileHeader />
             </Row>

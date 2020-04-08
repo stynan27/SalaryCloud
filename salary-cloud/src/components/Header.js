@@ -5,7 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 function Header() {
   return (
-    <div className="Header">
+    <div className="Header h-auto">
         <Navbar className="border-bottom border-success" bg="light" variant="light">
           <Navbar.Brand className="mr-auto" href="/Welcome">
             <h1> SalaryCloud </h1>

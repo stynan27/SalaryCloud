@@ -5,9 +5,9 @@ import DropDownForm from './DropDownForm';
 
 function WelcomeBody() {
   return (
-    <div className="WelcomeBody" align="center">
+    <div className="WelcomeBody container-fluid h-100" align="center">
       <h1>Welcome to SalaryCloud</h1>
-      
+
       <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
           Create Account

@@ -30,7 +30,6 @@ class App extends React.Component {
               <Route path='/About' exact component={About}/>
             </Switch>
             <Footer />
-
         </div>
       </Router>
     );
