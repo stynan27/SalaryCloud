@@ -95,27 +95,85 @@ updateUserPassword = async (req, res) => {
         });
     }
 
-    bcrypt.hash(body.hash, 18, function(err, newHash) {
-        // Provide the old plaintextPW and newPlaintextPW
-        User.updateOne({_id: req.params.id}, {
-            hash: newHash, 
-        }, (err, user) => {
-            if (err) {
-                return res.status(404).json({
-                    err,
-                    message: 'Error updating user password!',
+    const userId = req.params.id;
+    const password = body.hash;
+    const oldAnonId = body.anonId;
+
+    bcrypt.genSalt(12, function(err, newAnonSalt) {
+        bcrypt.hash(userId+password, newAnonSalt, function(err, newAnonId) {
+            AnonUser.updateOne({anonId: oldAnonId}, {
+                anonId: newAnonId,
+            }, (err, anonUser) => {
+                if (err) {
+                    return res.status(404).json({
+                        err,
+                        message: 'Error updating anonId!',
+                    });
+                }
+
+                bcrypt.hash(password, 18, function(err, newHash) {
+                    User.updateMany({_id: userId}, {
+                        hash: newHash,
+                        anonSalt: newAnonSalt,
+                    }, (err, user) => {
+                        if (err) {
+                            return res.status(404).json({
+                                err,
+                                message: 'Error updating user password!',
+                            });
+                        }
+        
+                        return res.status(200).json({
+                            success: true,
+                            email: user.email,
+                            message: 'User password and anonId updated!',
+                        });
+                    });
                 });
-            }
-            // TODO: Generate new anonSalt and new hashed anonId, 
-            // Then check if the oldPlaintextPw can be found in anonymous table...
-            // If it can, then hash newPlaintextPw 
-            // AnonUser.updateOne(anonId: newAnonId)
-            return res.status(200).json({
-                success: true,
-                email: user.email,
-                message: 'User password updated!',
             });
         });
+    });
+}
+
+updateAnonUser = async (req, res) => {
+    const body = req.body;
+
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide an anonymous user body to update',
+        });
+    }
+
+    AnonUser.findOne({ anonId: body.anonId }, (err, anonUser) => {
+        if (err) {
+            return res.status(404).json({
+                err,
+                message: 'Anonymous user not found!',
+            });
+        }
+        anonUser.anonId = body.anonId;
+        anonUser.positionTitle = body.positionTitle;
+        anonUser.salary = body.salary;
+        anonUser.employer = body.employer;
+        anonUser.location = body.location;
+        anonUser.yearsOfExp = body.yearsOfExp;
+
+        anonUser
+            .save()
+            .then(() => {
+                return res.status(200).json({
+                    success: true,
+                    id: anonUser.anonId,
+                    message: 'Anonymous user entry updated!',
+                });
+            })
+            .catch(error => {
+                return res.status(404).json({
+                    error,
+                    message: 'Anonymous user not updated!',
+                });
+            });
     });
 }
 
@@ -177,9 +235,17 @@ getUsers = async (req, res) => {
     }).catch(err => console.log(err));
 }
 
-// Read for Anonymous User data, only requires the anonId
 getAnonUserById = async (req, res) => {
-    await AnonUser.findOne({ anonId: result }, (err, anonUser) => {
+    const body = req.body;
+
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a request body containing the anonId.',
+        });
+    }
+
+    await AnonUser.findOne({ anonId: body.anonId }, (err, anonUser) => {
         if (err) {
             return res.status(400).json({ success: false, error: err });
         }
@@ -197,8 +263,10 @@ module.exports = {
     createUser,
     updateUserEmail,
     updateUserPassword,
+    updateAnonUser,
     deleteUser,
     getUserById,
     getUsers,
+    getAnonUserById,
 };
 
