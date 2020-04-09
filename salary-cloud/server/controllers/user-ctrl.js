@@ -1,5 +1,7 @@
-const User = require('../db/models/user-model');
 const bcrypt = require('bcrypt');
+
+const User = require('../db/models/user-model');
+const AnonUser = require('../db/models/anon-user-model');
 
 createUser = (req, res) => {
     const body = req.body;
@@ -12,28 +14,47 @@ createUser = (req, res) => {
     }
 
     const user = new User(body);
+    const anonUser = new AnonUser({anonId: ""});
 
-    if (!user) {
-        return res.status(400).json({ success: false, error: err });
+    if (!user || !anonUser) {
+        return res.status(400).json({ success: false, error: err, message: 'Invalid user or anonymous user object.' });
     }
 
-    bcrypt.hash(user.hash, 18, function(err, hash) {
-        user.hash = hash;
-        user
-            .save()
-            .then(() => {
-                return res.status(201).json({
-                    success: true,
-                    id: user._id,
-                    message: 'User created!',
+    const password = user.hash;
+
+    bcrypt.hash(password, 18, function(err, hash) {
+        bcrypt.genSalt(12, function(err, anonSalt) {
+            user.hash = hash;
+            user.anonSalt = anonSalt;
+            user
+                .save()
+                .then(() => {
+                    bcrypt.hash(user._id+password, anonSalt, function(err, anonId) {
+                        anonUser.anonId = anonId;
+                        anonUser
+                            .save()
+                            .then(() => {
+                                return res.status(201).json({
+                                    success: true,
+                                    id: anonUser.anonId,
+                                    message: 'User and anonymous user created!',
+                                });
+                            })
+                            .catch(error => {
+                                return res.status(400).json({
+                                    error,
+                                    message: 'Anonymous user not created!',
+                                });
+                            });
+                    });
+                })
+                .catch(error => {
+                    return res.status(400).json({
+                        error,
+                        message: 'User not created!',
+                    });
                 });
-            })
-            .catch(error => {
-                return res.status(400).json({
-                    error,
-                    message: 'User not created!',
-                });
-            });
+        });
     });
 }
 
@@ -75,6 +96,7 @@ updateUserPassword = async (req, res) => {
     }
 
     bcrypt.hash(body.hash, 18, function(err, newHash) {
+        // Provide the old plaintextPW and newPlaintextPW
         User.updateOne({_id: req.params.id}, {
             hash: newHash, 
         }, (err, user) => {
@@ -84,6 +106,10 @@ updateUserPassword = async (req, res) => {
                     message: 'Error updating user password!',
                 });
             }
+            // TODO: Generate new anonSalt and new hashed anonId, 
+            // Then check if the oldPlaintextPw can be found in anonymous table...
+            // If it can, then hash newPlaintextPw 
+            // AnonUser.updateOne(anonId: newAnonId)
             return res.status(200).json({
                 success: true,
                 email: user.email,
@@ -105,7 +131,20 @@ deleteUser = async (req, res) => {
                 .json({ success: false, error: `User not found` });
         }
 
-        return res.status(200).json({ success: true, data: user, message: 'User deleted!' });
+    }).catch(err => console.log(err));
+
+    await AnonUser.findOneAndDelete({ anonId: req.body.anonId }, (err, anonUser) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+
+        if (!anonUser) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Anonymous user not found` });
+        }
+        
+        return res.status(200).json({ success: true, data: anonUser, message: 'User and anonymous user deleted!' });
     }).catch(err => console.log(err));
 }
 
@@ -135,6 +174,22 @@ getUsers = async (req, res) => {
                 .json({ success: false, error: `No Users found!` });
         }
         return res.status(200).json({ success: true, data: users });
+    }).catch(err => console.log(err));
+}
+
+// Read for Anonymous User data, only requires the anonId
+getAnonUserById = async (req, res) => {
+    await AnonUser.findOne({ anonId: result }, (err, anonUser) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+
+        if (!anonUser) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Anonymous user not found` });
+        }
+        return res.status(200).json({ success: true, data: anonUser });
     }).catch(err => console.log(err));
 }
 
