@@ -1,4 +1,7 @@
+const bcrypt = require('bcrypt');
+
 const User = require('../db/models/user-model');
+const AnonUser = require('../db/models/anon-user-model');
 
 createUser = (req, res) => {
     const body = req.body;
@@ -11,60 +14,164 @@ createUser = (req, res) => {
     }
 
     const user = new User(body);
+    const anonUser = new AnonUser({anonId: ""});
 
-    if (!user) {
-        return res.status(400).json({ success: false, error: err });
+    if (!user || !anonUser) {
+        return res.status(400).json({ success: false, error: err, message: 'Invalid user or anonymous user object.' });
     }
 
-    user
-        .save()
-        .then(() => {
-            return res.status(201).json({
-                success: true,
-                id: user._id,
-                message: 'User created!',
-            });
-        })
-        .catch(error => {
-            return res.status(400).json({
-                error,
-                message: 'User not created!',
-            });
+    const password = user.hash;
+
+    bcrypt.hash(password, 18, function(err, hash) {
+        bcrypt.genSalt(12, function(err, anonSalt) {
+            user.hash = hash;
+            user.anonSalt = anonSalt;
+            user
+                .save()
+                .then(() => {
+                    bcrypt.hash(user._id+password, anonSalt, function(err, anonId) {
+                        anonUser.anonId = anonId;
+                        anonUser
+                            .save()
+                            .then(() => {
+                                return res.status(201).json({
+                                    success: true,
+                                    id: anonUser.anonId,
+                                    message: 'User and anonymous user created!',
+                                });
+                            })
+                            .catch(error => {
+                                return res.status(400).json({
+                                    error,
+                                    message: 'Anonymous user not created!',
+                                });
+                            });
+                    });
+                })
+                .catch(error => {
+                    return res.status(400).json({
+                        error,
+                        message: 'User not created!',
+                    });
+                });
         });
+    });
 }
 
-updateUser = async (req, res) => {
+updateUserEmail = async (req, res) => {
     const body = req.body;
 
     if (!body) {
         return res.status(400).json({
             success: false,
-            error: 'You must provide a user body to update',
+            error: 'You must provide a body to update a user email',
         });
     }
 
-    User.findOne({ _id: req.params.id }, (err, user) => {
+    User.updateOne({_id: req.params.id}, {
+        email: body.email, 
+    }, (err, user) => {
         if (err) {
             return res.status(404).json({
                 err,
-                message: 'User not found!',
+                message: 'Error updating user email!',
             });
         }
-        user.email = body.email;
-        user.hash = body.hash;
-        user
+        return res.status(200).json({
+            success: true,
+            email: user.email,
+            message: 'User email updated!',
+        });
+    });
+}
+
+updateUserPassword = async (req, res) => {
+    const body = req.body;
+
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a body to update a user password',
+        });
+    }
+
+    const userId = req.params.id;
+    const password = body.hash;
+    const oldAnonId = body.anonId;
+
+    bcrypt.genSalt(12, function(err, newAnonSalt) {
+        bcrypt.hash(userId+password, newAnonSalt, function(err, newAnonId) {
+            AnonUser.updateOne({anonId: oldAnonId}, {
+                anonId: newAnonId,
+            }, (err, anonUser) => {
+                if (err) {
+                    return res.status(404).json({
+                        err,
+                        message: 'Error updating anonId!',
+                    });
+                }
+
+                bcrypt.hash(password, 18, function(err, newHash) {
+                    User.updateMany({_id: userId}, {
+                        hash: newHash,
+                        anonSalt: newAnonSalt,
+                    }, (err, user) => {
+                        if (err) {
+                            return res.status(404).json({
+                                err,
+                                message: 'Error updating user password!',
+                            });
+                        }
+        
+                        return res.status(200).json({
+                            success: true,
+                            email: user.email,
+                            message: 'User password and anonId updated!',
+                        });
+                    });
+                });
+            });
+        });
+    });
+}
+
+updateAnonUser = async (req, res) => {
+    const body = req.body;
+
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide an anonymous user body to update',
+        });
+    }
+
+    AnonUser.findOne({ anonId: body.anonId }, (err, anonUser) => {
+        if (err) {
+            return res.status(404).json({
+                err,
+                message: 'Anonymous user not found!',
+            });
+        }
+        anonUser.anonId = body.anonId;
+        anonUser.positionTitle = body.positionTitle;
+        anonUser.salary = body.salary;
+        anonUser.employer = body.employer;
+        anonUser.location = body.location;
+        anonUser.yearsOfExp = body.yearsOfExp;
+
+        anonUser
             .save()
             .then(() => {
                 return res.status(200).json({
                     success: true,
-                    id: user._id,
-                    message: 'User updated!',
+                    id: anonUser.anonId,
+                    message: 'Anonymous user entry updated!',
                 });
             })
             .catch(error => {
                 return res.status(404).json({
                     error,
-                    message: 'User not updated!',
+                    message: 'Anonymous user not updated!',
                 });
             });
     });
@@ -82,7 +189,20 @@ deleteUser = async (req, res) => {
                 .json({ success: false, error: `User not found` });
         }
 
-        return res.status(200).json({ success: true, data: user, message: 'User deleted!' });
+    }).catch(err => console.log(err));
+
+    await AnonUser.findOneAndDelete({ anonId: req.body.anonId }, (err, anonUser) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+
+        if (!anonUser) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Anonymous user not found` });
+        }
+        
+        return res.status(200).json({ success: true, data: anonUser, message: 'User and anonymous user deleted!' });
     }).catch(err => console.log(err));
 }
 
@@ -115,11 +235,38 @@ getUsers = async (req, res) => {
     }).catch(err => console.log(err));
 }
 
+getAnonUserById = async (req, res) => {
+    const body = req.body;
+
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a request body containing the anonId.',
+        });
+    }
+
+    await AnonUser.findOne({ anonId: body.anonId }, (err, anonUser) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+
+        if (!anonUser) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Anonymous user not found` });
+        }
+        return res.status(200).json({ success: true, data: anonUser });
+    }).catch(err => console.log(err));
+}
+
 module.exports = {
     createUser,
-    updateUser,
+    updateUserEmail,
+    updateUserPassword,
+    updateAnonUser,
     deleteUser,
     getUserById,
     getUsers,
+    getAnonUserById,
 };
 

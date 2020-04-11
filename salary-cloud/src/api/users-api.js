@@ -5,14 +5,15 @@ const usersApi = axios.create({
 });
 
 export const createUser = (params) => usersApi.post('/create', params);
-export const updateUserById = (id, params) => usersApi.put(`/update/${id}`, params);
+export const updateUserEmail = (id, params) => usersApi.put(`/updateEmail${id}`, params);
+export const updateUserPassword = (id, params) => usersApi.put(`/updatePassword${id}`, params);
 export const deleteUserById = (id) => usersApi.put(`/delete/${id}`);
 export const getAllUsers = () => usersApi.get('/getAll');
 export const getUserById = (id) => usersApi.get(`get/${id}`);
 
 const apis = {
   createUser,
-  updateUserById,
+  updateUserEmail,
   deleteUserById,
   getAllUsers,
   getUserById
