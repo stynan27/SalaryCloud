@@ -37,8 +37,8 @@ class DropDownForm extends React.Component {
     if (password !== passwordConfirmation) {
       window.alert("Passwords don't match!");
     } else {
+      window.alert("Please wait while profile is being created...");
       await usersApi.createUser({email, hash: password}).then(response => {
-        anonUsersApi.createAnonUser({anonId: response.data.id}).then(reponse => {
           window.alert("User created!");
           this.setState({
             toProfileSettings: true,
@@ -46,7 +46,6 @@ class DropDownForm extends React.Component {
             password: '',
             passwordConfirmation: ''
           });
-        })
       });
     }
 
