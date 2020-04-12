@@ -20,13 +20,13 @@ class ProfileSettingsDropDown extends React.Component {
                     <Form.Group controlId="exampleForm.ControlSelect1">
                         <Form.Control as="select">
                         <option>...</option>
-                            { 
-                                state.options.map(option => (
-                                    <option>{ option }</option>
+                            {
+                                state.options.map((option, index) => (
+                                    <option key={index}>{ option }</option>
                                 ))
                             }
                         </Form.Control>
-                    </Form.Group> 
+                    </Form.Group>
                 </div>
             </div>
         );

@@ -14,7 +14,17 @@ class App extends React.Component {
     super(props)
     this.state = {
       loggedIn: false,
+      user: Object,
     }
+    this.handleLogIn = this.handleLogIn.bind(this);
+  }
+
+  handleLogIn(user) {
+    // TODO: add loading state in case of long response time
+    this.setState({
+      loggedIn: true,
+      user: user,
+    });
   }
 
   render() {
@@ -22,14 +32,14 @@ class App extends React.Component {
       <Router>
         <div className="App">
           <Header />
-            <Switch>
-              <Route path='/' exact component={WelcomeBody}/>
-              <Route path='/Welcome' exact component={WelcomeBody}/>
-              <Route path='/ProfileSettings' exact component={ProfileSettingsBody}/>
-              <Route path='/MyProfile' exact component={MyProfileBody}/>
-              <Route path='/About' exact component={About}/>
-            </Switch>
-            <Footer />
+          <Switch>
+            <Route path='/' exact render={(props) => <WelcomeBody {...props} handleLogIn={this.handleLogIn}/>}/>
+            <Route path='/Welcome' exact render={(props) => <WelcomeBody {...props} handleLogIn={this.handleLogIn}/>}/>
+            <Route path='/ProfileSettings' exact render={(props) => <ProfileSettingsBody {...props} loggedIn={this.state.loggedIn} user={this.state.user}/>}/>
+            <Route path='/MyProfile' exact component={MyProfileBody}/>
+            <Route path='/About' exact component={About}/>
+          </Switch>
+          <Footer />
         </div>
       </Router>
     );

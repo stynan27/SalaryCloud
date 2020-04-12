@@ -3,7 +3,8 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 import DropDownForm from './DropDownForm';
 
-function WelcomeBody() {
+function WelcomeBody(props) {
+  console.log(props);
   return (
     <div className="WelcomeBody container-fluid h-100" align="center">
       <h1>Welcome to SalaryCloud</h1>
@@ -14,7 +15,7 @@ function WelcomeBody() {
         </Dropdown.Toggle>
 
         <Dropdown.Menu className="text-center">
-          <DropDownForm />
+          <DropDownForm handleLogIn={props.handleLogIn} />
         </Dropdown.Menu>
       </Dropdown>
     </div>

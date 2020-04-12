@@ -69,7 +69,7 @@ updateUserEmail = async (req, res) => {
     }
 
     User.updateOne({_id: req.params.id}, {
-        email: body.email, 
+        email: body.email,
     }, (err, user) => {
         if (err) {
             return res.status(404).json({
@@ -122,7 +122,7 @@ updateUserPassword = async (req, res) => {
                                 message: 'Error updating user password!',
                             });
                         }
-        
+
                         return res.status(200).json({
                             success: true,
                             email: user.email,
@@ -201,7 +201,7 @@ deleteUser = async (req, res) => {
                 .status(404)
                 .json({ success: false, error: `Anonymous user not found` });
         }
-        
+
         return res.status(200).json({ success: true, data: anonUser, message: 'User and anonymous user deleted!' });
     }).catch(err => console.log(err));
 }
@@ -269,4 +269,3 @@ module.exports = {
     getUsers,
     getAnonUserById,
 };
-

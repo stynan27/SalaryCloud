@@ -4,7 +4,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import { Redirect } from 'react-router-dom';
 import usersApi from '../../api/users-api';
-import anonUsersApi from '../../api/anon-users-api';
+// import anonUsersApi from '../../api/anon-users-api';
 
 class DropDownForm extends React.Component {
   constructor(props) {
@@ -13,8 +13,13 @@ class DropDownForm extends React.Component {
       toProfileSettings: false,
       email: '',
       password: '',
-      passwordConfirmation: ''
+      passwordConfirmation: '',
+      user: Object,
     };
+    this.handleChangeInputEmail = this.handleChangeInputEmail.bind(this);
+    this.handleChangeInputPassword = this.handleChangeInputPassword.bind(this);
+    this.handleChangeInputPasswordConfirmation = this.handleChangeInputPasswordConfirmation.bind(this);
+    this.handleCreateUser = this.handleCreateUser.bind(this);
   }
 
   handleChangeInputEmail = async (event) => {
@@ -37,15 +42,19 @@ class DropDownForm extends React.Component {
     if (password !== passwordConfirmation) {
       window.alert("Passwords don't match!");
     } else {
-      window.alert("Please wait while profile is being created...");
-      await usersApi.createUser({email, hash: password}).then(response => {
-          window.alert("User created!");
+      await usersApi.createUser({email, hash: password}).then((response) => {
+        console.log(response);
+        if (response.status === 400) {
+          console.log(response.status);
+          // console.log(response);
+          window.alert("User Was not created successfully");
+        } else {
+          this.props.handleLogIn(response.data);
           this.setState({
             toProfileSettings: true,
-            email: '',
-            password: '',
-            passwordConfirmation: ''
-          });
+            user: response.data,
+          })
+        }
       });
     }
 
@@ -53,7 +62,7 @@ class DropDownForm extends React.Component {
 
   render () {
     if (this.state.toProfileSettings === true) {
-      return <Redirect to="/ProfileSettings" />
+      return <Redirect to={{ pathname: "/ProfileSettings", givenProps: { loggedIn: true, user: this.state.user }}} />
     }
 
     const {email, password, passwordConfirmation} = this.state;

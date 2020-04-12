@@ -6,7 +6,12 @@ import Button from 'react-bootstrap/Button';
 
 import ProfileSettingsDropDown from './ProfileSettingsDropDown';
 
-function ProfileSettingsForm() {
+function ProfileSettingsForm(props) {
+
+    const handleDeleteUser = (event) => {
+
+    }
+
     return (
         <div className="ProfileSettingsForm">
             <Form className="mb-5">
@@ -22,7 +27,7 @@ function ProfileSettingsForm() {
                                 <InputGroup.Text>$</InputGroup.Text>
                             </InputGroup.Prepend>
                             <FormControl
-                                input type="number"
+                                type="number"
                                 placeholder="1000"
                                 min="1000"
                                 max="1000000000000"
@@ -41,7 +46,7 @@ function ProfileSettingsForm() {
                     <Form.Group controlId="exampleForm.ControlSelect1">
                         <InputGroup className="mb-3">
                             <FormControl
-                                input type="search"
+                                type="search"
                                 placeholder="Enter company name here..."
                                 aria-label="currentCompany"
                                 aria-describedby="current-company-input"
@@ -55,7 +60,7 @@ function ProfileSettingsForm() {
                     <Form.Group controlId="exampleForm.ControlSelect1">
                         <InputGroup className="mb-3">
                             <FormControl
-                                input type="number"
+                                type="number"
                                 placeholder="0"
                                 min="00"
                                 max="100"
@@ -76,7 +81,7 @@ function ProfileSettingsForm() {
                 </div>
 
                 <div className="mt-1 mb-1">
-                  <Button variant="danger" type="input">
+                  <Button variant="danger" type="input" onClick={handleDeleteUser}>
                     Delete Account
                   </Button>
                 </div>
