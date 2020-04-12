@@ -40,13 +40,13 @@ class DropDownForm extends React.Component {
   handleCreateUser = async (event) => {
     const {email, password, passwordConfirmation} = this.state;
     if (password !== passwordConfirmation) {
+      // TODO: replate window.alert with less aggressive alert
       window.alert("Passwords don't match!");
     } else {
       await usersApi.createUser({email, hash: password}).then((response) => {
         console.log(response);
         if (response.status === 400) {
           console.log(response.status);
-          // console.log(response);
           window.alert("User Was not created successfully");
         } else {
           this.props.handleLogIn(response.data);
@@ -102,9 +102,9 @@ class DropDownForm extends React.Component {
             />
           </InputGroup>
 
-            <Button variant="primary" onClick={this.handleCreateUser}>
-              Submit
-            </Button>{' '}
+          <Button variant="primary" onClick={this.handleCreateUser}>
+            Submit
+          </Button>
         </div>
     );
 

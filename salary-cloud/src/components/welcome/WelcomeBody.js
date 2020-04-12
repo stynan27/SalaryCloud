@@ -4,7 +4,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropDownForm from './DropDownForm';
 
 function WelcomeBody(props) {
-  console.log(props);
   return (
     <div className="WelcomeBody container-fluid h-100" align="center">
       <h1>Welcome to SalaryCloud</h1>

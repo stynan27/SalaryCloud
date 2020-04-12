@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Header from './components/Header';
+import Header from './components/header/Header';
 import WelcomeBody from './components/welcome/WelcomeBody';
 import ProfileSettingsBody from './components/profileSettings/ProfileSettingsBody';
 import MyProfileBody from './components/myProfile/MyProfileBody';
@@ -22,7 +22,7 @@ class App extends React.Component {
   handleLogIn(user) {
     // TODO: add loading state in case of long response time
     this.setState({
-      loggedIn: true,
+      loggedIn: false,
       user: user,
     });
   }
@@ -31,7 +31,7 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
-          <Header />
+          <Header user={this.state.user} loggedIn={this.state.loggedIn} handleLogIn={this.handleLogIn}/>
           <Switch>
             <Route path='/' exact render={(props) => <WelcomeBody {...props} handleLogIn={this.handleLogIn}/>}/>
             <Route path='/Welcome' exact render={(props) => <WelcomeBody {...props} handleLogIn={this.handleLogIn}/>}/>
