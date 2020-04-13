@@ -95,6 +95,7 @@ updateUserPassword = async (req, res) => {
         });
     }
 
+    // TODO: userId should not be provided, instead get when user is retreived!
     const userId = req.params.id;
     const password = body.hash;
     const oldAnonId = body.anonId;
@@ -259,6 +260,61 @@ getAnonUserById = async (req, res) => {
     }).catch(err => console.log(err));
 }
 
+getAnonUserOnLogin = async (req, res) => {
+    const body = req.body;
+
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a body to update a user password',
+        });
+    }
+
+    const userEmail = body.email;
+    const userPassword = body.hash;
+
+    await User.findOne({ email: userEmail }, (err, user) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+
+        if (!user) {
+            return res
+                .status(404)
+                .json({ success: false, error: `User not found` });
+        }
+
+        bcrypt.compare(userPassword, user.hash, function(err, isPassword) {
+            if (err) {
+                return res.status(400).json({ success: false, error: err });
+            }
+            if (isPassword) {
+                // success
+                bcrypt.hash(user._id+userPassword, user.anonSalt, function(err, anonIdToCheck) {
+                    AnonUser.findOne({ anonId: anonIdToCheck }, (err, anonUser) => {
+                        if (err) {
+                            return res.status(400).json({ success: false, error: err });
+                        }
+                
+                        if (!anonUser) {
+                            return res
+                                .status(404)
+                                .json({ success: false, err, message: `Anonymous user not found` });
+                        }
+                        return res.status(200).json({ success: true, data: anonUser });
+                    }).catch(err => console.log(err));
+                });
+            }
+            else {
+                return res
+                    .status(401)
+                    .json({ success: false, error: `Incorrect password` });
+            }
+        });
+    }).catch(err => console.log(err));
+    
+}
+
 module.exports = {
     createUser,
     updateUserEmail,
@@ -267,6 +323,6 @@ module.exports = {
     deleteUser,
     getUserById,
     getUsers,
-    getAnonUserById,
+    getAnonUserOnLogin
 };
 
