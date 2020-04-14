@@ -8,9 +8,10 @@ router.post('/create', UserCtrl.createUser);
 router.put('/updateEmail/:id', UserCtrl.updateUserEmail);
 router.put('/updatePassword/:id', UserCtrl.updateUserPassword);
 router.put('/updateAnon', UserCtrl.updateAnonUser);
-router.delete('/delete/:id', UserCtrl.deleteUser);
-router.get('/get/:id', UserCtrl.getUserById);
-router.get('/getAnon', UserCtrl.getAnonUserById);
+router.delete('/delete/', UserCtrl.deleteUserByIds);
+router.get('/getUser/:id', UserCtrl.getUserById);
+router.get('/getAnon', UserCtrl.getAnonUserByAnonId);
+router.get('/login', UserCtrl.getIdsOnLogin);
 router.get('/getAll', UserCtrl.getUsers);
 
 module.exports = router;
