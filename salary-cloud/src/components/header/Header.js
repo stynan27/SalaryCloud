@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './header.css';
 
-import usersApi from '../api/users-api';
+import usersApi from '../../api/users-api';
 
 class Header extends React.Component {
   constructor(props) {
@@ -16,12 +16,13 @@ class Header extends React.Component {
       password: ''
     }
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInputChange(event) {
     const formTarget = event.target;
-    const name = target.name;
-    const value = target.value;
+    const name = formTarget.name;
+    const value = formTarget.value;
 
     this.setState({
       [name]: value
@@ -29,12 +30,17 @@ class Header extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log("(:3)");
+    const params = {email: this.state.email, hash: this.state.password}
+    usersApi.login(params).then( (response) => {
+      
+    }).catch( (error) => {
+      console.log(error);
+    });
   }
 
   render() {
     const changeAccLogIn = () => {
-      if (props.loggedIn){
+      if (this.props.loggedIn){
         return (
           <Nav className="justify-content-end ">
             <Nav.Item className="mr-2">
@@ -71,7 +77,7 @@ class Header extends React.Component {
                       <Form.Group controlId="formPassword">
                         <Form.Control name="password" type="password" placeholder="Enter Password" onChange={this.handleInputChange} />
                       </Form.Group>
-                      <Button type="submit" variant="primary"> Submit </Button>
+                      <Button type="submit" variant="primary" onClick={this.handleSubmit}> Submit </Button>
                     </Form>
                   </div>
                 </Dropdown.Menu>

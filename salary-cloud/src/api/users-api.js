@@ -17,9 +17,13 @@ export const getAllUsers = () => usersApi.get('/getAll');
 const apis = {
   createUser,
   updateUserEmail,
+  updateUserPassword,
+  updateAnonUser,
   deleteUser,
-  getAllUsers,
-  getUserById
+  getUserById,
+  getAnonUser,
+  login,
+  getAllUsers
 };
 
 export default apis;
