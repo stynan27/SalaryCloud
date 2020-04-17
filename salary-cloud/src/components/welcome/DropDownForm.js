@@ -13,7 +13,9 @@ class DropDownForm extends React.Component {
       toProfileSettings: false,
       email: '',
       password: '',
-      passwordConfirmation: ''
+      passwordConfirmation: '',
+      userId: '',
+      anonId: ''
     };
   }
 
@@ -44,7 +46,9 @@ class DropDownForm extends React.Component {
             toProfileSettings: true,
             email: '',
             password: '',
-            passwordConfirmation: ''
+            passwordConfirmation: '',
+            userId: response.data.userId,
+            anonId: response.data.anonId,
           });
       });
     }
@@ -62,6 +66,7 @@ class DropDownForm extends React.Component {
       <div className="mx-2">
           <InputGroup className="mb-3">
             <FormControl
+              data-testid="email-input"
               type="email"
               placeholder="Email"
               aria-label="Email"
@@ -73,6 +78,7 @@ class DropDownForm extends React.Component {
 
           <InputGroup className="mb-3">
             <FormControl
+              data-testid="password-input"
               type="password"
               placeholder="Password"
               aria-label="Password"
@@ -84,6 +90,7 @@ class DropDownForm extends React.Component {
 
           <InputGroup className="mb-3">
             <FormControl
+              data-testid="confirm-password-input"
               type="password"
               placeholder="Confirm Password"
               aria-label="Confirm Password"
@@ -93,7 +100,7 @@ class DropDownForm extends React.Component {
             />
           </InputGroup>
 
-            <Button variant="primary" onClick={this.handleCreateUser}>
+            <Button data-testid="submit-button" variant="primary" onClick={this.handleCreateUser}>
               Submit
             </Button>{' '}
         </div>
