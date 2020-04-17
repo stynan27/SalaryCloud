@@ -13,6 +13,7 @@ class Header extends React.Component {
     this.state = {
       email: '',
       password: '',
+      loading: false,
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,6 +35,7 @@ class Header extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     console.log(this.state);
+    // const params = {email: this.state.email, hash: this.state.hash};
     const params = {"email": "myemail@email.com", "hash": "password"};
     await usersApi.login(params).then( (response) => {
       console.log(response);
@@ -41,7 +43,11 @@ class Header extends React.Component {
         console.log(response.message);
       } else {
         const userId = {userId: response.userId, anonId: response.anonId};
-        this.props.handleLogIn(userId);
+        this.setState({ loading: true}, () => {
+          this.props.handleLogIn(userId, ()=> {
+            this.setState({loading: false, email: '', password: ''});
+          });
+        });
       }
     }).catch( (error) => {
       console.log(error);
@@ -49,7 +55,19 @@ class Header extends React.Component {
   }
 
   render() {
-    if (this.props.loggedIn){
+    if (this.state.loading){
+      return (
+        <div className="Header h-auto">
+          <Navbar className="border-bottom border-success" bg="light" variant="light">
+            <Navbar.Brand className="mr-auto" href="/Welcome">
+              <h1> SalaryCloud </h1>
+            </Navbar.Brand>
+            <h1> Loading </h1>
+          </Navbar>
+        </div>
+      );
+    }
+    if (this.props.loggedIn) {
       return(
         <div className="Header h-auto">
           <Navbar className="border-bottom border-success" bg="light" variant="light">

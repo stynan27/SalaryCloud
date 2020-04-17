@@ -19,14 +19,14 @@ class App extends React.Component {
     this.handleLogIn = this.handleLogIn.bind(this);
   }
 
-  handleLogIn(user) {
+  handleLogIn(user, callback) {
     // TODO: add loading state in case of long response time
-    console.log("HERE");
     if (user) {
       this.setState({
         loggedIn: true,
         user: user,
       });
+      callback();
     }
   }
 
