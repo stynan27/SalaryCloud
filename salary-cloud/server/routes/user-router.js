@@ -11,7 +11,7 @@ router.put('/updateAnon', UserCtrl.updateAnonUser);
 router.delete('/delete/', UserCtrl.deleteUserByIds);
 router.get('/getUser/:id', UserCtrl.getUserById);
 router.get('/getAnon', UserCtrl.getAnonUserByAnonId);
-router.get('/login', UserCtrl.getIdsOnLogin);
+router.post('/login', UserCtrl.getIdsOnLogin);
 router.get('/getAll', UserCtrl.getUsers);
 
 module.exports = router;

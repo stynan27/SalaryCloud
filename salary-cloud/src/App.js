@@ -21,10 +21,13 @@ class App extends React.Component {
 
   handleLogIn(user) {
     // TODO: add loading state in case of long response time
-    this.setState({
-      loggedIn: false,
-      user: user,
-    });
+    console.log("HERE");
+    if (user) {
+      this.setState({
+        loggedIn: true,
+        user: user,
+      });
+    }
   }
 
   render() {

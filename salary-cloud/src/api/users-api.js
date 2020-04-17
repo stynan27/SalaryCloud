@@ -11,7 +11,7 @@ export const updateAnonUser = (params) => usersApi.put(`/updateAnon`, params);
 export const deleteUser = (params) => usersApi.put(`/delete`, params);
 export const getUserById = (id) => usersApi.get(`/getUser/${id}`);
 export const getAnonUser = (params) => usersApi.get(`/getAnon`, params);
-export const login = (params) => usersApi.get(`/login`, params);
+export const login = (params) => usersApi.post(`/login`, params);
 export const getAllUsers = () => usersApi.get('/getAll');
 
 const apis = {
