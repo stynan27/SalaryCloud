@@ -45,16 +45,18 @@ class DropDownForm extends React.Component {
     } else {
       await usersApi.createUser({email, hash: password}).then((response) => {
         console.log(response);
-        if (response.status === 400) {
-          console.log(response.status);
-          window.alert("User Was not created successfully");
-        } else {
-          this.props.handleLogIn(response.data);
-          this.setState({
-            toProfileSettings: true,
-            user: response.data,
-          })
-        }
+        console.log(response.status);
+        
+        //this.props.handleLogIn(response.data);
+        console.log('before setState');
+        this.setState({
+          toProfileSettings: true,
+          user: response.data,
+        })
+      
+      }).catch(error => {
+        console.log(error);
+        window.alert("User Was not created successfully");
       });
     }
 

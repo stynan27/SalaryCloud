@@ -21,11 +21,11 @@ class Header extends React.Component {
 
 
   handleInputChange(event) {
-    console.log(this.state);
+    //console.log(this.state);
     const formTarget = event.target;
     const name = formTarget.name;
     const value = formTarget.value;
-    console.log(event);
+    //console.log(event);
 
     this.setState({
       [name]: value
@@ -34,16 +34,14 @@ class Header extends React.Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(this.state);
-    // const params = {email: this.state.email, hash: this.state.hash};
-    const params = {"email": "myemail@email.com", "hash": "password"};
+    const params = {"email": this.state.email, "hash": this.state.password};
     await usersApi.login(params).then( (response) => {
       console.log(response);
       if (response.status !== 200) {
         console.log(response.message);
       } else {
         const userId = {userId: response.userId, anonId: response.anonId};
-        this.setState({ loading: true}, () => {
+        this.setState({ loading: true }, () => {
           this.props.handleLogIn(userId, ()=> {
             this.setState({loading: false, email: '', password: ''});
           });

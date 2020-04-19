@@ -261,9 +261,7 @@ getAnonUserByAnonId = async (req, res) => {
 }
 
 getIdsOnLogin = async (req, res) => {
-    console.log(req);
     const body = req.body;
-    console.log(body);
 
     if (!body) {
         return res.status(400).json({
