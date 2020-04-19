@@ -8,6 +8,7 @@ import ProfileSettingsForm from './ProfileSettingsForm';
 function ProfileSettingsBody(props) {
   var user, loggedIn = null;
   console.log(props);
+  
   if (props.location.givenProps && props.location.givenProps.loggedIn) {
     loggedIn = props.location.givenProps.loggedIn;
     user = props.location.givenProps.user;

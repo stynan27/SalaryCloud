@@ -44,11 +44,10 @@ class DropDownForm extends React.Component {
       window.alert("Passwords don't match!");
     } else {
       await usersApi.createUser({email, hash: password}).then((response) => {
-        console.log(response);
-        console.log(response.status);
+        // console.log(response);
+        // console.log(response.status);
         
         //this.props.handleLogIn(response.data);
-        console.log('before setState');
         this.setState({
           toProfileSettings: true,
           user: response.data,

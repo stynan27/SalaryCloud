@@ -1,6 +1,7 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { Link } from 'react-router-dom';
 
 
 function LoggedIn() {
@@ -13,9 +14,9 @@ function LoggedIn() {
             Profile
           </Dropdown.Toggle>
           <Dropdown.Menu className="text-center">
-            <Dropdown.Item href='/MyProfile'> View My Profile </Dropdown.Item>
+            <Link to="/MyProfile"> View My Profile </Link>
             <Dropdown.Divider />
-            <Dropdown.Item href='/ProfileSettings'> Profile Settings </Dropdown.Item>
+            <Link to="/ProfileSettings"> Profile Settings </Link>
           </Dropdown.Menu>
         </Dropdown>
       </Nav.Item>
