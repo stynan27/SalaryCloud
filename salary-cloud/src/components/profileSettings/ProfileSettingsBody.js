@@ -6,7 +6,7 @@ import {Redirect} from 'react-router-dom';
 import ProfileSettingsForm from './ProfileSettingsForm';
 
 function ProfileSettingsBody(props) {
-  var user, loggedIn = null;
+  let user, loggedIn = null;
   console.log(props);
   
   if (props.location.givenProps && props.location.givenProps.loggedIn) {

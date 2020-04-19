@@ -36,13 +36,12 @@ class Header extends React.Component {
     event.preventDefault();
     const params = {"email": this.state.email, "hash": this.state.password};
     await usersApi.login(params).then( (response) => {
-      console.log(response);
       if (response.status !== 200) {
         console.log(response.message);
       } else {
-        const userId = {userId: response.userId, anonId: response.anonId};
+        const user = {userId: response.data.userId, anonId: response.data.anonId};
         this.setState({ loading: true }, () => {
-          this.props.handleLogIn(userId, ()=> {
+          this.props.handleLogIn(user, ()=> {
             this.setState({loading: false, email: '', password: ''});
           });
         });
