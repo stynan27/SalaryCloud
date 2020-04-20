@@ -1,0 +1,23 @@
+.WelcomeBody {
+  background-image: url('/mobileBackground.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.WelcomeBody h1:first-child {
+  padding-top: 30%;
+  color: aliceblue
+}
+
+/* Desktop Sizing -- apply when view > 500px width */
+@media only screen and (min-width: 500px){
+  .WelcomeBody{
+    background-image: url('/desktopBackground.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .WelcomeBody h1:first-child {
+    font-size: 4rem;
+    padding-top: 20%;
+    color: black;
+  }
+}
