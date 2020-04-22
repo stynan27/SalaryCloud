@@ -30,7 +30,7 @@ function ProfileSettingsBody(props) {
       </Row>
 
       <Row className="justify-content-center">
-          <ProfileSettingsForm  loggedIn={loggedIn} user={user}/>
+          <ProfileSettingsForm  user={user}/>
       </Row>
     </Container>
   );
