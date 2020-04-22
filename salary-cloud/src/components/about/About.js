@@ -4,10 +4,10 @@ import Image from 'react-bootstrap/Image';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 function About() {
-  return(
+  return (
     <div className="container-fluid mt-2 mb-2 pl-5 pr-5 h-auto">
       <div className="row">
-        <div className="col border-right">
+        <div className="col pb-3 border-bottom-xs border-right-sm">
           <h1 className="h1"> Our Story... </h1>
           <Image src={"/theBoys.jpg"} alt="theBoys" fluid thumbnail/>
         </div>

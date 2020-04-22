@@ -5,19 +5,38 @@
 }
 .WelcomeBody h1:first-child {
   padding-top: 30%;
-  color: aliceblue
+  color: aliceblue;
+  margin-bottom: 2rem;
+}
+
+.center-dropdown {
+  left: -0.75% !important;
+  right: 100% !important;
+}
+
+.WelcomeBody button {
+  width: 60%;
 }
 
 /* Desktop Sizing -- apply when view > 500px width */
 @media only screen and (min-width: 500px){
   .WelcomeBody{
     background-image: url('/desktopBackground.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
   }
   .WelcomeBody h1:first-child {
     font-size: 4rem;
-    padding-top: 20%;
+    padding-top: 15%;
     color: black;
+    margin-bottom: 3rem;
+  }
+  .WelcomeBody button {
+    width: 25%;
+  }
+}
+
+/* When view height > 800px && width > 500px */
+@media only screen and (min-height: 800px) and (min-width: 500px) {
+  .WelcomeBody h1:first-child {
+    padding-top: 20%
   }
 }

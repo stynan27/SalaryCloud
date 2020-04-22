@@ -9,3 +9,17 @@ img {
 .list {
   font-size: medium;
 }
+
+/* screen < 576px */
+@media only screen and (max-width: 576px) {
+  .border-bottom-xs {
+    border-bottom: 1px solid #dee2e6 !important;
+  }
+}
+
+/* screen >= 576 */
+@media only screen and (min-width: 576px){
+  .border-right-sm {
+    border-right: 1px solid #dee2e6 !important;
+  }
+}

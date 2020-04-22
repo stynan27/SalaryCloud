@@ -14,7 +14,7 @@ function WelcomeBody(props) {
             Create Account
           </Dropdown.Toggle>
 
-          <Dropdown.Menu className="text-center">
+          <Dropdown.Menu className="center-dropdown text-center">
             <DropDownForm handleLogIn={props.handleLogIn} />
           </Dropdown.Menu>
         </Dropdown>

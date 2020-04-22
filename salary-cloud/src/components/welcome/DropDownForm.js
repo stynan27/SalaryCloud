@@ -4,7 +4,6 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import { Redirect } from 'react-router-dom';
 import usersApi from '../../api/users-api';
-// import anonUsersApi from '../../api/anon-users-api';
 
 class DropDownForm extends React.Component {
   constructor(props) {
@@ -44,16 +43,11 @@ class DropDownForm extends React.Component {
       window.alert("Passwords don't match!");
     } else {
       await usersApi.createUser({email, hash: password}).then((response) => {
-        // console.log(response);
-        // console.log(response.status);
-        
-        // TODO: implement handler call similar to login 
-        //this.props.handleLogIn(response.data);
         this.setState({
           toProfileSettings: true,
           user: response.data,
         })
-      
+
       }).catch(error => {
         console.log(error);
         window.alert("User Was not created successfully");
