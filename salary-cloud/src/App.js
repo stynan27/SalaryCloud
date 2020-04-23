@@ -17,6 +17,7 @@ class App extends React.Component {
       userId: Object,
     }
     this.handleLogIn = this.handleLogIn.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
   }
 
   handleLogIn(user, callback) {
@@ -30,6 +31,14 @@ class App extends React.Component {
     }
   }
 
+  handleLogOut(callback) {
+    this.setState({
+      loggedIn: false,
+      user: null
+    });
+    callback();
+  }
+
   render() {
     return (
       <Router>
@@ -38,7 +47,9 @@ class App extends React.Component {
           <Switch>
             <Route path='/' exact render={(props) => <WelcomeBody {...props} handleLogIn={this.handleLogIn}/>}/>
             <Route path='/Welcome' exact render={(props) => <WelcomeBody {...props} handleLogIn={this.handleLogIn}/>}/>
-            <Route path='/ProfileSettings' exact render={(props) => <ProfileSettingsBody {...props} loggedIn={this.state.loggedIn} user={this.state.user}/>}/>
+            <Route path='/ProfileSettings' exact render={(props) => <ProfileSettingsBody {...props} loggedIn={this.state.loggedIn} 
+                user={this.state.user} handleLogOut={this.handleLogOut}/>}/>
+
             <Route path='/MyProfile' exact component={MyProfileBody}/>
             <Route path='/About' exact component={About}/>
           </Switch>

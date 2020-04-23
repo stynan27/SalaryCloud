@@ -6,6 +6,7 @@ import {Redirect} from 'react-router-dom';
 import ProfileSettingsForm from './ProfileSettingsForm';
 
 function ProfileSettingsBody(props) {
+  const handleLogOut = props.handleLogOut;
   let user, loggedIn = null;
   console.log(props);
   
@@ -30,7 +31,7 @@ function ProfileSettingsBody(props) {
       </Row>
 
       <Row className="justify-content-center">
-          <ProfileSettingsForm  user={user}/>
+          <ProfileSettingsForm  user={user} handleLogOut={handleLogOut}/>
       </Row>
     </Container>
   );

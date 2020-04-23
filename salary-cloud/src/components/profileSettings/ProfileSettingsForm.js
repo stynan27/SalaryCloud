@@ -11,7 +11,7 @@ class ProfileSettingsForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-          isLoaded: true,
+          loading: false,
           user: props.user
         }
         this.handleDeleteUser = this.handleDeleteUser.bind(this);
@@ -21,14 +21,24 @@ class ProfileSettingsForm extends React.Component {
         event.preventDefault();
         console.log("Delete User");
         const { user } = this.state;
-        await usersApi.deleteUser({id: user.userId, anonId: user.anonId}).then((response) => {
-            console.log(response);
-            console.log(response.status);
-            
-            // TODO: Test with insomnia & implement handler call for logout
-            //this.props.handleLogOut(response.data);
 
-            console.log("User Deleted Successfully!")
+        //const params = { "id": user.userId, "anonId": user.anonId };
+        console.log('userId: ' + user.userId);
+        await usersApi.deleteUser(user.userId).then((response) => {
+            // TODO: Test with insomnia & implement handler call for logout
+            
+            if (response.status === 200) {
+                this.setState({ loading: true }, () => {
+                    this.props.handleLogOut( () => {
+                        this.setState({ loading: false});
+                    });
+                });
+
+                console.log("User Deleted Successfully!");
+            } else {
+                console.log("Invalid HTTP response code!");
+                console.log(response.status);
+            }
         
         }).catch(error => {
             console.log(error);

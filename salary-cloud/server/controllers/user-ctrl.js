@@ -179,7 +179,12 @@ updateAnonUser = async (req, res) => {
 }
 
 deleteUserByIds = async (req, res) => {
+    console.log('params: ' + req.params.id );
+    console.log('passed: ' + req.body.id + ' ' + req.body.anonId);
     await User.findOneAndDelete({ _id: req.body.id }, (err, user) => {
+
+        console.log('passed: ' + req.body.id + ' ' + req.body.anonId);
+
         if (err) {
             return res.status(400).json({ success: false, error: err });
         }
