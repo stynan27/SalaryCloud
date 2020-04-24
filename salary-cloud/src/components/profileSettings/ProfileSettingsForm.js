@@ -21,12 +21,7 @@ class ProfileSettingsForm extends React.Component {
         event.preventDefault();
         console.log("Delete User");
         const { user } = this.state;
-
-        //const params = { "id": user.userId, "anonId": user.anonId };
-        console.log('userId: ' + user.userId);
-        await usersApi.deleteUser(user.userId).then((response) => {
-            // TODO: Test with insomnia & implement handler call for logout
-            
+        await usersApi.deleteUser(user.userId, user.anonId).then((response) => {
             if (response.status === 200) {
                 this.setState({ loading: true }, () => {
                     this.props.handleLogOut( () => {
