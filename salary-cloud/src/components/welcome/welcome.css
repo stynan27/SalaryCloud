@@ -9,18 +9,19 @@
   margin-bottom: 2rem;
 }
 
-.center-dropdown {
-  left: -0.75% !important;
-  right: 100% !important;
-}
-
-.WelcomeBody button {
+/* Select all decendants of WelcomeBody that are buttons, but only the first */
+.WelcomeBody button:nth-child(1) {
   width: 60%;
 }
 
-/* Desktop Sizing -- apply when view > 500px width */
-@media only screen and (min-width: 500px){
-  .WelcomeBody{
+.center-dropdown {
+  left: -0.75% !important;
+  right: 39% !important;
+}
+
+/* Desktop Sizing -- apply when view > 605px width */
+@media only screen and (min-width: 605px){
+  .WelcomeBody {
     background-image: url('/desktopBackground.jpg');
   }
   .WelcomeBody h1:first-child {
@@ -29,8 +30,13 @@
     color: black;
     margin-bottom: 3rem;
   }
-  .WelcomeBody button {
+  /* Select all decendants of WelcomeBody that are buttons, but only the first */
+  .WelcomeBody button:nth-child(1) {
     width: 25%;
+  }
+  .center-dropdown {
+    left: -0.75% !important;
+    right: 74.3% !important;
   }
 }
 
