@@ -6,11 +6,11 @@ const usersApi = axios.create({
 
 export const createUser = (params) => usersApi.post('/create', params);
 export const updateUserEmail = (id, params) => usersApi.put(`/updateEmail${id}`, params);
-export const updateUserPassword = (id, params) => usersApi.put(`/updatePassword${id}`, params);
-export const updateAnonUser = (params) => usersApi.put(`/updateAnon`, params);
-export const deleteUser = (params) => usersApi.put(`/delete`, params);
+export const updateUserPassword = (id, anonId, params) => usersApi.put(`/updatePassword/${id}/${anonId}`, params);
+export const updateAnonUser = (anonId, params) => usersApi.put(`/updateAnon/${anonId}`, params);
+export const deleteUser = (id, anonId) => usersApi.delete(`/delete/${id}/${anonId}`);
 export const getUserById = (id) => usersApi.get(`/getUser/${id}`);
-export const getAnonUser = (params) => usersApi.get(`/getAnon`, params);
+export const getAnonUser = (anonId) => usersApi.get(`/getAnon/${anonId}`);
 export const login = (params) => usersApi.post(`/login`, params);
 export const getAllUsers = () => usersApi.get('/getAll');
 
