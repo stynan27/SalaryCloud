@@ -3,7 +3,6 @@ import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
 
-
 function LoggedIn() {
 
   return (

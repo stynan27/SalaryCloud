@@ -6,3 +6,15 @@
 button.log-btn {
   width: 100%;
 }
+
+.dropdown-right {
+  left: -90% !important;
+  right: 0% !important;
+}
+
+@media only screen and (min-width: 605px) {
+  .dropdown-right {
+    left: -50% !important;
+    right: 0% !important;
+  }
+}

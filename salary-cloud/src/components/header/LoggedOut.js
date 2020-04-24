@@ -11,7 +11,7 @@ function LoggedOut(props) {
         <Dropdown className="">
           <Dropdown.Toggle className="log-btn" variant="success"> Log In </Dropdown.Toggle>
 
-          <Dropdown.Menu className="log-btn text-center">
+          <Dropdown.Menu className="dropdown-right text-center">
             <div className="mx-2" onSubmit={props.handleSubmit}>
               <Form>
                 <Form.Group controlId="formEmail">
