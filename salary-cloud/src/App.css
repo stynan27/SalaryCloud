@@ -20,3 +20,9 @@ html, body {
 .App {
   height: inherit;
 }
+
+@media only screen and (max-width: 310px) {
+  .App {
+    width: fit-content;
+  }
+}

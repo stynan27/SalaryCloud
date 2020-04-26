@@ -1,0 +1,48 @@
+.WelcomeBody {
+  background-image: url('/mobileBackground.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.WelcomeBody h1:first-child {
+  padding-top: 30%;
+  color: aliceblue;
+  margin-bottom: 2rem;
+}
+
+/* Select all decendants of WelcomeBody that are buttons, but only the first */
+.WelcomeBody button:nth-child(1) {
+  width: 60%;
+}
+
+.center-dropdown {
+  left: -0.75% !important;
+  right: 39% !important;
+}
+
+/* Desktop Sizing -- apply when view > 605px width */
+@media only screen and (min-width: 605px){
+  .WelcomeBody {
+    background-image: url('/desktopBackground.jpg');
+  }
+  .WelcomeBody h1:first-child {
+    font-size: 4rem;
+    padding-top: 15%;
+    color: black;
+    margin-bottom: 3rem;
+  }
+  /* Select all decendants of WelcomeBody that are buttons, but only the first */
+  .WelcomeBody button:nth-child(1) {
+    width: 25%;
+  }
+  .center-dropdown {
+    left: -0.75% !important;
+    right: 74.3% !important;
+  }
+}
+
+/* When view height > 800px && width > 500px */
+@media only screen and (min-height: 800px) and (min-width: 500px) {
+  .WelcomeBody h1:first-child {
+    padding-top: 20%
+  }
+}
