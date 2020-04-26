@@ -44,9 +44,6 @@ class DropDownForm extends React.Component {
       window.alert("Passwords don't match!");
     } else {
       await usersApi.createUser({email, hash: password}).then((response) => {
-        // console.log(response);
-        // console.log(response.status);
-        
         // TODO: implement handler call similar to login 
         //this.props.handleLogIn(response.data);
         this.setState({

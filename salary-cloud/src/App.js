@@ -14,7 +14,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       loggedIn: false,
-      userId: Object,
+      user: Object,
     }
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);

@@ -21,11 +21,9 @@ class Header extends React.Component {
 
 
   handleInputChange(event) {
-    //console.log(this.state);
     const formTarget = event.target;
     const name = formTarget.name;
     const value = formTarget.value;
-    //console.log(event);
 
     this.setState({
       [name]: value

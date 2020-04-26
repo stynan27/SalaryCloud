@@ -155,7 +155,12 @@ updateAnonUser = async (req, res) => {
                 message: 'Anonymous user not found!',
             });
         }
-        anonUser.anonId = req.params.anonId;
+        if (!anonUser) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Anonymous user not found` });
+        }
+        anonUser.anonId = anonUser.anonId;
         anonUser.positionTitle = body.positionTitle;
         anonUser.salary = body.salary;
         anonUser.employer = body.employer;
@@ -181,7 +186,6 @@ updateAnonUser = async (req, res) => {
 }
 
 deleteUserByIds = async (req, res) => {
-    console.log('params: ' + req.params.id );
     await User.findOneAndDelete({ _id: req.params.id }, (err, user) => {
         if (err) {
             return res.status(400).json({ success: false, error: err });
@@ -291,8 +295,13 @@ getIdsOnLogin = async (req, res) => {
                         if (err) {
                             return res.status(400).json({ success: false, error: err });
                         }
+                        else if (!anonUser) {
+                            return res
+                                .status(404)
+                                .json({ success: false, error: `Anonymous user not found` });
+                        }
                         return res.status(200).json({ success: true, userId: user._id, anonId: anonUser._id });
-                    });
+                    }).catch(err => console.log(err));
                 });
             }
             else {
