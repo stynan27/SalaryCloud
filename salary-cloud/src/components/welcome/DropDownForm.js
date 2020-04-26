@@ -13,7 +13,8 @@ class DropDownForm extends React.Component {
       email: '',
       password: '',
       passwordConfirmation: '',
-      user: Object,
+      userId: '',
+      anonId: ''
     };
     this.handleChangeInputEmail = this.handleChangeInputEmail.bind(this);
     this.handleChangeInputPassword = this.handleChangeInputPassword.bind(this);
@@ -42,15 +43,17 @@ class DropDownForm extends React.Component {
       // TODO: replate window.alert with less aggressive alert
       window.alert("Passwords don't match!");
     } else {
-      await usersApi.createUser({email, hash: password}).then((response) => {
-        this.setState({
-          toProfileSettings: true,
-          user: response.data,
-        })
-
-      }).catch(error => {
-        console.log(error);
-        window.alert("User Was not created successfully");
+      window.alert("Please wait while profile is being created...");
+      await usersApi.createUser({email, hash: password}).then(response => {
+          window.alert("User created!");
+          this.setState({
+            toProfileSettings: true,
+            email: '',
+            password: '',
+            passwordConfirmation: '',
+            userId: response.data.userId,
+            anonId: response.data.anonId,
+          });
       });
     }
 
@@ -67,6 +70,7 @@ class DropDownForm extends React.Component {
       <div className="mx-2">
           <InputGroup className="mb-3">
             <FormControl
+              data-testid="email-input"
               type="email"
               placeholder="Email"
               aria-label="Email"
@@ -78,6 +82,7 @@ class DropDownForm extends React.Component {
 
           <InputGroup className="mb-3">
             <FormControl
+              data-testid="password-input"
               type="password"
               placeholder="Password"
               aria-label="Password"
@@ -89,6 +94,7 @@ class DropDownForm extends React.Component {
 
           <InputGroup className="mb-3">
             <FormControl
+              data-testid="confirm-password-input"
               type="password"
               placeholder="Confirm Password"
               aria-label="Confirm Password"
