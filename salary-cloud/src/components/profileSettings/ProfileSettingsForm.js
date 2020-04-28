@@ -38,26 +38,26 @@ class ProfileSettingsForm extends React.Component {
         const key = event.target.id;
         let anonData = {...this.state.anonData};
         if (key === "city" || key === "state") {
-            anonData["location"][key] = event.target.value;
-            console.log(anonData["location"][key]);
+            if (anonData["location"]) {
+                anonData["location"][key] = event.target.value;
+            } else {
+                anonData["location"] = { "city": "...", "state": "..." };
+                anonData["location"][key] = event.target.value
+            }
         } else {
             anonData[key] = event.target.value
-            console.log(anonData[key]);
         }
         this.setState({anonData});
     }
 
     handleSubmitClick = async (event) => {
         event.preventDefault();
-        console.log('Submit');
         const { anonId } = this.state.user;
         const anonData = this.state.anonData;
         this.setState({ loading: true });  
         await usersApi.updateAnonUser(anonId, anonData).then(response => {
             if (response.status === 200) {
-                this.props.handleLogOut( () => {
-                    this.setState({ loading: false});
-                });
+                this.setState({ loading: false});
                 console.log("User Updated Successfully!");
             } else {
                 console.log("Invalid HTTP response code!");
@@ -77,9 +77,9 @@ class ProfileSettingsForm extends React.Component {
         this.setState({ loading: true });
         await usersApi.deleteUser(user.userId, user.anonId).then((response) => {
             if (response.status === 200) {
-                this.props.handleLogOut();
                 this.setState({ loading: false});
                 console.log("User Deleted Successfully!");
+                this.props.handleLogOut();
             } else {
                 console.log("Invalid HTTP response code!");
                 console.log(response.status);
@@ -92,8 +92,6 @@ class ProfileSettingsForm extends React.Component {
 
     render() {
         const { anonData } = this.state;
-
-        console.log(anonData);
 
         const position = (anonData['positionTitle']) ? anonData['positionTitle'] : "...";
         const state = (anonData['location']) ? anonData['location']['state'].toString() : "...";
@@ -168,7 +166,7 @@ class ProfileSettingsForm extends React.Component {
                     </div>
 
                     <div className="mt-1 mb-1">
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" type="submit" onSubmit={this.handleSubmitClick}>
                         Submit
                     </Button>
                     </div>

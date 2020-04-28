@@ -13,8 +13,6 @@ class DropDownForm extends React.Component {
       email: '',
       password: '',
       passwordConfirmation: '',
-      // userId: '',
-      // anonId: ''
       user: Object,
       loggedIn: props.loggedIn
     };
@@ -55,7 +53,6 @@ class DropDownForm extends React.Component {
               email: '',
               password: '',
               passwordConfirmation: '',
-              //user: response.data,
               user: user,
               loggedIn: loggedIn
             });
