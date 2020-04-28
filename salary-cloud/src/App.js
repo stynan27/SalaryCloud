@@ -27,7 +27,7 @@ class App extends React.Component {
         loggedIn: true,
         user: user,
       });
-      callback();
+      callback(this.state.user, this.state.loggedIn);
     }
   }
 
@@ -45,7 +45,7 @@ class App extends React.Component {
           <Header user={this.state.user} loggedIn={this.state.loggedIn} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut}/>
           <Switch>
             <Route path='/' exact render={(props) => <WelcomeBody {...props} handleLogIn={this.handleLogIn}/>}/>
-            <Route path='/Welcome' exact render={(props) => <WelcomeBody {...props} handleLogIn={this.handleLogIn}/>}/>
+            <Route path='/Welcome' exact render={(props) => <WelcomeBody {...props} loggedIn={this.state.loggedIn} handleLogIn={this.handleLogIn}/>}/>
             <Route path='/ProfileSettings' exact render={(props) => <ProfileSettingsBody {...props} loggedIn={this.state.loggedIn} 
                 user={this.state.user} handleLogOut={this.handleLogOut}/>}/>
 

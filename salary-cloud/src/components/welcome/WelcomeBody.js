@@ -15,7 +15,7 @@ function WelcomeBody(props) {
           </Dropdown.Toggle>
 
           <Dropdown.Menu className="center-dropdown text-center">
-            <DropDownForm handleLogIn={props.handleLogIn} />
+            <DropDownForm loggedIn={props.loggedIn} handleLogIn={props.handleLogIn} />
           </Dropdown.Menu>
         </Dropdown>
     </div>

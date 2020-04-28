@@ -41,7 +41,7 @@ class Header extends React.Component {
       } else {
         const user = {userId: response.data.userId, anonId: response.data.anonId};
         this.setState({ loading: true }, () => {
-          this.props.handleLogIn(user, ()=> {
+          this.props.handleLogIn(user, (user, loggedIn) => {
             this.setState({loading: false, email: '', password: ''});
           });
         });

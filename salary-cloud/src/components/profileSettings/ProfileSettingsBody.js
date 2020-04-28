@@ -19,6 +19,8 @@ function ProfileSettingsBody(props) {
     user = props.user;
   }
 
+  //console.log('userId: ' + user.userId + ' anonId: ' + user.anonId);
+
   if (!loggedIn || user === undefined){
     return <Redirect to="/Welcome" />
   }

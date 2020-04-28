@@ -13,8 +13,10 @@ class DropDownForm extends React.Component {
       email: '',
       password: '',
       passwordConfirmation: '',
-      userId: '',
-      anonId: ''
+      // userId: '',
+      // anonId: ''
+      user: Object,
+      loggedIn: props.loggedIn
     };
     this.handleChangeInputEmail = this.handleChangeInputEmail.bind(this);
     this.handleChangeInputPassword = this.handleChangeInputPassword.bind(this);
@@ -46,12 +48,17 @@ class DropDownForm extends React.Component {
       window.alert("Please wait while profile is being created...");
       await usersApi.createUser({email, hash: password}).then(response => {
           window.alert("User created!");
-          this.setState({
-            toProfileSettings: true,
-            email: '',
-            password: '',
-            passwordConfirmation: '',
-            user: response.data,
+          const user = {userId: response.data.userId, anonId: response.data.anonId};
+          this.props.handleLogIn(user, (user, loggedIn) => {
+            this.setState({
+              toProfileSettings: true,
+              email: '',
+              password: '',
+              passwordConfirmation: '',
+              //user: response.data,
+              user: user,
+              loggedIn: loggedIn
+            });
           });
       }).catch(error => {
         console.log(error);
@@ -63,7 +70,9 @@ class DropDownForm extends React.Component {
 
   render () {
     if (this.state.toProfileSettings === true) {
-      return <Redirect to={{ pathname: "/ProfileSettings", givenProps: { loggedIn: true, user: this.state.user }}} />
+      const user = this.props.user;
+      const loggedIn = this.props.loggedIn
+      return <Redirect to={{ pathname: "/ProfileSettings", givenProps: { loggedIn: loggedIn, user: user }}} />
     }
 
     const {email, password, passwordConfirmation} = this.state;
