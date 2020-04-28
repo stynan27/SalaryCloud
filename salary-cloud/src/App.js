@@ -36,21 +36,21 @@ class App extends React.Component {
       loggedIn: false,
       user: null
     });
-    callback();
   }
 
   render() {
     return (
       <Router>
         <div className="App">
-          <Header user={this.state.user} loggedIn={this.state.loggedIn} handleLogIn={this.handleLogIn}/>
+          <Header user={this.state.user} loggedIn={this.state.loggedIn} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut}/>
           <Switch>
             <Route path='/' exact render={(props) => <WelcomeBody {...props} handleLogIn={this.handleLogIn}/>}/>
             <Route path='/Welcome' exact render={(props) => <WelcomeBody {...props} handleLogIn={this.handleLogIn}/>}/>
             <Route path='/ProfileSettings' exact render={(props) => <ProfileSettingsBody {...props} loggedIn={this.state.loggedIn} 
                 user={this.state.user} handleLogOut={this.handleLogOut}/>}/>
 
-            <Route path='/MyProfile' exact component={MyProfileBody}/>
+            <Route path='/MyProfile' exact render={(props) => <MyProfileBody {...props} loggedIn={this.state.loggedIn} 
+                user={this.state.user}/>}/>
             <Route path='/About' exact component={About}/>
           </Switch>
           <Footer />

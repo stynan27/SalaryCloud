@@ -1,5 +1,7 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
+import { Link } from 'react-router-dom';
+
 import LoggedIn from './LoggedIn';
 import LoggedOut from './LoggedOut';
 
@@ -54,8 +56,10 @@ class Header extends React.Component {
       return (
         <div className="Header h-auto">
           <Navbar className="border-bottom border-success" bg="light" variant="light">
-            <Navbar.Brand className="mr-auto" href="/Welcome">
-              <h1> SalaryCloud </h1>
+            <Navbar.Brand className="mr-auto">
+              <h1>
+                <Link to="/Welcome">SalaryCloud</Link>
+              </h1>
             </Navbar.Brand>
             <h1> Loading </h1>
           </Navbar>
@@ -66,10 +70,12 @@ class Header extends React.Component {
       return(
         <div className="Header h-auto">
           <Navbar className="border-bottom border-success" bg="light" variant="light">
-            <Navbar.Brand className="mr-auto" href="/Welcome">
-              <h1> SalaryCloud </h1>
+            <Navbar.Brand className="mr-auto">
+              <h1>
+                <Link to="/Welcome">SalaryCloud</Link>
+              </h1>
             </Navbar.Brand>
-            <LoggedIn />
+            <LoggedIn handleLogOut={this.props.handleLogOut}/>
           </Navbar>
         </div>
       );
@@ -77,8 +83,10 @@ class Header extends React.Component {
       return(
         <div className="Header h-auto">
           <Navbar className="border-bottom border-success" bg="light" variant="light">
-            <Navbar.Brand className="mr-auto" href="/Welcome">
-              <h1> SalaryCloud </h1>
+            <Navbar.Brand className="mr-auto">
+              <h1>
+                <Link to="/Welcome">SalaryCloud</Link>
+              </h1>
             </Navbar.Brand>
             <LoggedOut handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit}/>
           </Navbar>

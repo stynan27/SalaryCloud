@@ -3,7 +3,8 @@ import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
 
-function LoggedIn() {
+function LoggedIn(props) {
+  const logOutHandler = props.handleLogOut;
 
   return (
     <Nav className="justify-content-end ">
@@ -21,7 +22,7 @@ function LoggedIn() {
       </Nav.Item>
 
       <Nav.Item>
-        <Nav.Link className="btn btn-success text-white" href="#" role="button"> Log Out </Nav.Link>
+        <Nav.Link className="btn btn-success text-white" role="button" onClick={logOutHandler}> Log Out </Nav.Link>
       </Nav.Item>
     </Nav>
   );

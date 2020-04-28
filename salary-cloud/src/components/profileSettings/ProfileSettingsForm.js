@@ -73,12 +73,12 @@ class ProfileSettingsForm extends React.Component {
     handleDeleteUser = async (event) => {
         event.preventDefault();
         const { user } = this.state;
+        // TODO: Fix Issue with loading...
         this.setState({ loading: true });
         await usersApi.deleteUser(user.userId, user.anonId).then((response) => {
             if (response.status === 200) {
-                this.props.handleLogOut( () => {
-                    this.setState({ loading: false});
-                });
+                this.props.handleLogOut();
+                this.setState({ loading: false});
                 console.log("User Deleted Successfully!");
             } else {
                 console.log("Invalid HTTP response code!");

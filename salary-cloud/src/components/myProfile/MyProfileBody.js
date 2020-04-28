@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -12,8 +13,18 @@ import RelevantExperience from './RelevantExperience';
 
 import './myProfile.css';
 
-function MyProfileBody() {
+function MyProfileBody(props) {
+    let user, loggedIn = null;
 
+    if (props.loggedIn) {
+        loggedIn = props.loggedIn;
+        user = props.user;
+    }
+
+    if (!loggedIn || user === undefined){
+        return <Redirect to="/Welcome" />
+    }
+      
     return (
         <Container className="ProfileBody mt-2 mb-3"  align="center" fluid={true}>
             <Row className="mt-3 justify-content-center contentContainer boxShadow">
