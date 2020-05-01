@@ -67,8 +67,8 @@ class DropDownForm extends React.Component {
 
   render () {
     if (this.state.toProfileSettings === true) {
-      const user = this.props.user;
-      const loggedIn = this.props.loggedIn
+      const user = this.state.user;
+      const loggedIn = this.state.loggedIn;
       return <Redirect to={{ pathname: "/ProfileSettings", givenProps: { loggedIn: loggedIn, user: user }}} />
     }
 
@@ -112,7 +112,7 @@ class DropDownForm extends React.Component {
             />
           </InputGroup>
 
-          <Button variant="primary" onClick={this.handleCreateUser}>
+          <Button variant="primary" data-testid="submit-button" onClick={this.handleCreateUser}>
             Submit
           </Button>
         </div>

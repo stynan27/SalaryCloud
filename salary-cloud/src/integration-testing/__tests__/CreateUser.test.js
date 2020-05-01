@@ -1,18 +1,13 @@
 import React from 'react';
-import { createMemoryHistory } from 'history';
-import { Router } from 'react-router-dom';
+
 import Dropdown from 'react-bootstrap/Dropdown';
 import ReactDOM from 'react-dom';
-import { render, cleanup, getByTestId, fireEvent, waitFor } from '@testing-library/react';
-import { act } from "react-dom/test-utils";
+import { render, cleanup, fireEvent, wait } from '@testing-library/react';
+//import { act } from "react-dom/test-utils";
 import '@testing-library/jest-dom/extend-expect';
 
-import ProfileSettings from '../components/profileSettings/ProfileSettingsBody';
-import DropDownForm from '../components/welcome/DropDownForm';
-import usersApi from '../api/users-api';
-
-let USERID = "";
-let ANONID = "";
+import DropDownForm from '../../components/welcome/DropDownForm';
+import TestingRouter from '../TestingRouter'
 
 const mockData = {
     email: "testEmail23@gmail.com",
@@ -31,8 +26,14 @@ describe('Creation Tests', () => {
         ReactDOM.unmountComponentAtNode(div);
     });
     
-    it("DropDownForm inputs can be submitted", () => {
-        const { getByTestId } = render(<DropDownForm />);
+    it("DropDownForm inputs can be submitted", async () => {
+        const redirectUrl = '/ProfileSettings';
+        const { debug, getByText, getByTestId } = render(
+            <TestingRouter 
+                RedirectUrl={redirectUrl}
+                user={mockData}
+            />
+        );
     
         const emailInput = getByTestId('email-input');
         const passwordInput = getByTestId('password-input');
@@ -54,24 +55,21 @@ describe('Creation Tests', () => {
         // wait for alert to pop-up signaling submit of form data
         expect(global.alert).toHaveBeenCalledTimes(1); 
 
+        // Currently broken in latest version of react-testing library...
+        // await waitFor(() => { 
+        //     expect(getByText('Profile Settings')).toBeInTheDocument();
+        // }); 
 
+        try {
+            // Wait for Redirection to Profile Settings Page
+            await wait(() => getByText("Profile Settings"));
+        } catch (err) {
+            debug();
+            throw err;
+        }
     });
 
-    // may need more time to execute this test...
-    it("API Login of Newly Created User is Successful", async () => {
-        await usersApi.login(mockData).then( response => {
-            expect(response.status).toBe(200);
-            expect(response.data.userId).toBeDefined();
-            expect(response.data.anonId).toBeDefined();
-            USERID = response.data.userId;
-            ANONID = response.data.anonId;
-        });
-    });
-
-    it("API Deletion of Created User is Successful", async () => {
-        console.log(USERID);
-        await usersApi.deleteUser(USERID, ANONID).then( response => {
-            expect(response.status).toBe(200);
-        });
-    });
+    // it("Deletion of Created User is Successful", async () => {
+        
+    // });
 });
