@@ -10,13 +10,13 @@ function LoggedIn(props) {
     <Nav className="justify-content-end ">
       <Nav.Item className="mr-2">
         <Dropdown>
-          <Dropdown.Toggle className="btn btn-success text-white" >
+          <Dropdown.Toggle data-testid="profile-dropdown-button" className="btn btn-success text-white" >
             Profile
           </Dropdown.Toggle>
           <Dropdown.Menu className="text-center">
             <Link to="/MyProfile"> View My Profile </Link>
             <Dropdown.Divider />
-            <Link to="/ProfileSettings"> Profile Settings </Link>
+            <Link data-testid="profile-settings-link" to="/ProfileSettings"> Profile Settings </Link>
           </Dropdown.Menu>
         </Dropdown>
       </Nav.Item>

@@ -172,7 +172,7 @@ class ProfileSettingsForm extends React.Component {
                     </div>
 
                     <div className="mt-1 mb-1">
-                    <Button variant="danger" type="input" onClick={this.handleDeleteUser}>
+                    <Button data-testid="profile-settings-delete-button" variant="danger" type="input" onClick={this.handleDeleteUser}>
                         Delete Account
                     </Button>
                     </div>
