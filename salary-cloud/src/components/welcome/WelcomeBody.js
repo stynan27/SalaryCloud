@@ -10,7 +10,7 @@ function WelcomeBody(props) {
         <h1>Welcome to SalaryCloud</h1>
 
         <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
+          <Dropdown.Toggle data-testid="dropdown-button" variant="success" id="dropdown-basic">
             Create Account
           </Dropdown.Toggle>
 

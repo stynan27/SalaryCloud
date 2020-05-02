@@ -6,6 +6,7 @@ import { render, cleanup, fireEvent, wait } from '@testing-library/react';
 //import { act } from "react-dom/test-utils";
 import '@testing-library/jest-dom/extend-expect';
 
+import App from '../../App';
 import DropDownForm from '../../components/welcome/DropDownForm';
 import TestingRouter from '../TestingRouter'
 
@@ -28,12 +29,20 @@ describe('Creation Tests', () => {
     
     it("DropDownForm inputs can be submitted", async () => {
         const redirectUrl = '/ProfileSettings';
+        // const { debug, getByText, getByTestId } = render(
+        //     <TestingRouter 
+        //         RedirectUrl={redirectUrl}
+        //         user={mockData}
+        //     />
+        // );
+
         const { debug, getByText, getByTestId } = render(
-            <TestingRouter 
-                RedirectUrl={redirectUrl}
-                user={mockData}
-            />
+            <App />
         );
+
+        const dropDownButton = getByTestId('dropdown-button');
+
+        fireEvent.click(dropDownButton);
     
         const emailInput = getByTestId('email-input');
         const passwordInput = getByTestId('password-input');
@@ -62,14 +71,21 @@ describe('Creation Tests', () => {
 
         try {
             // Wait for Redirection to Profile Settings Page
-            await wait(() => getByText("Profile Settings"));
+            //await wait(() => getByText("Current Salary"));
+            await wait(() => getByTestId("profile-settings-header"));
         } catch (err) {
             debug();
             throw err;
         }
+
+        expect(getByTestId("profile-settings-header").innerHTML).toMatch('Profile Settings');
     });
 
-    // it("Deletion of Created User is Successful", async () => {
-        
-    // });
+    //it("Deletion of Created User is Successful", async () => {
+        //Login
+
+        //Check for Profile Settings text again
+        //Click Delete
+        //wait for Redirection to Welcome page
+    //});
 });
