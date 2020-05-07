@@ -6,14 +6,13 @@ import { render, cleanup, fireEvent, wait } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 import App from '../../App';
-import usersApi from '../../api/users-api';
 
 const mockData = {
-    email: "testEmail23@gmail.com",
+    email: "testEmail1@gmail.com",
     hash: "password123"
 };
 
-describe('Creation Tests', () => {
+describe('Create Integration Tests', () => {
     afterEach(cleanup);
 
     it("App renders properly", () => {
@@ -22,7 +21,7 @@ describe('Creation Tests', () => {
         ReactDOM.unmountComponentAtNode(div);
     });
     
-    it("App inputs can be submitted", async () => {
+    it("App can Register a new User profile", async () => {
         const { debug, getByText, getByTestId } = render(<App />);
 
         const welcomeHeader = getByTestId('welcome-header');
@@ -70,7 +69,7 @@ describe('Creation Tests', () => {
         expect(getByTestId("profile-settings-header").innerHTML).toMatch('Profile Settings');
     });
 
-    it("Deletion of Created User is Successful", async () => {
+    it("App can Delete the newly created User profile", async () => {
         // Login
         const { debug, getByText, getByTestId } = render(<App />);
 

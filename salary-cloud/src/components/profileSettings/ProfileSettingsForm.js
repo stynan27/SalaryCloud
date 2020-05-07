@@ -122,6 +122,7 @@ class ProfileSettingsForm extends React.Component {
                                     max="1000000000000"
                                     aria-label="currentSalary"
                                     aria-describedby="current-salary-input"
+                                    data-testid="profile-settings-salary-input" 
                                 />
                                 <InputGroup.Append>
                                     <InputGroup.Text>/yr</InputGroup.Text>
@@ -140,6 +141,7 @@ class ProfileSettingsForm extends React.Component {
                                     onChange={this.handleInputChange}
                                     aria-label="currentCompany"
                                     aria-describedby="current-company-input"
+                                    data-testid="profile-settings-company-input" 
                                 />
                             </InputGroup>
                         </Form.Group>
@@ -157,6 +159,7 @@ class ProfileSettingsForm extends React.Component {
                                     max="100"
                                     aria-label="currentExperienceLevel"
                                     aria-describedby="current-experience-input"
+                                    data-testid="profile-settings-yearsofexp-input" 
                                 />
                                 <InputGroup.Append>
                                     <InputGroup.Text>years</InputGroup.Text>
@@ -166,7 +169,7 @@ class ProfileSettingsForm extends React.Component {
                     </div>
 
                     <div className="mt-1 mb-1">
-                    <Button variant="primary" type="submit" onSubmit={this.handleSubmitClick}>
+                    <Button data-testid="profile-settings-submit-button" variant="primary" type="submit" onSubmit={this.handleSubmitClick}>
                         Submit
                     </Button>
                     </div>

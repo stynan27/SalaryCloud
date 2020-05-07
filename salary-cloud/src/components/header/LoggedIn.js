@@ -22,7 +22,7 @@ function LoggedIn(props) {
       </Nav.Item>
 
       <Nav.Item>
-        <Nav.Link className="btn btn-success text-white" role="button" onClick={logOutHandler}> Log Out </Nav.Link>
+        <Nav.Link data-testid="logout-link" className="btn btn-success text-white" role="button" onClick={logOutHandler}> Log Out </Nav.Link>
       </Nav.Item>
     </Nav>
   );
