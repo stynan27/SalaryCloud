@@ -18,3 +18,9 @@ button.log-btn {
     right: 0% !important;
   }
 }
+
+/* Header Text Link */
+.Header h1 > a {
+  color: black;
+  text-decoration: none;
+}

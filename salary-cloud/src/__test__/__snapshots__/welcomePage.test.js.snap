@@ -1,0 +1,253 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Welcome Page Create Account DropDownForm on Welcome Page should render the usual html without crashing 1`] = `
+<div
+  className="mx-2"
+>
+  <div
+    className="mb-3 input-group"
+  >
+    <input
+      aria-describedby="email-input"
+      aria-label="Email"
+      className="form-control"
+      data-testid="email-input"
+      onChange={[Function]}
+      placeholder="Email"
+      type="email"
+      value=""
+    />
+  </div>
+  <div
+    className="mb-3 input-group"
+  >
+    <input
+      aria-describedby="password-input"
+      aria-label="Password"
+      className="form-control"
+      data-testid="password-input"
+      onChange={[Function]}
+      placeholder="Password"
+      type="password"
+      value=""
+    />
+  </div>
+  <div
+    className="mb-3 input-group"
+  >
+    <input
+      aria-describedby="confirmation-input"
+      aria-label="Confirm Password"
+      className="form-control"
+      data-testid="confirm-password-input"
+      onChange={[Function]}
+      placeholder="Confirm Password"
+      type="password"
+      value=""
+    />
+  </div>
+  <button
+    className="btn btn-primary"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Submit
+  </button>
+</div>
+`;
+
+exports[`Welcome Page Create Account Dropdown on Welcome Page should render the usual contents without crashing 1`] = `
+<div
+  className="mx-2"
+>
+  <div
+    className="mb-3 input-group"
+  >
+    <input
+      aria-describedby="email-input"
+      aria-label="Email"
+      className="form-control"
+      data-testid="email-input"
+      onChange={[Function]}
+      placeholder="Email"
+      type="email"
+      value=""
+    />
+  </div>
+  <div
+    className="mb-3 input-group"
+  >
+    <input
+      aria-describedby="password-input"
+      aria-label="Password"
+      className="form-control"
+      data-testid="password-input"
+      onChange={[Function]}
+      placeholder="Password"
+      type="password"
+      value=""
+    />
+  </div>
+  <div
+    className="mb-3 input-group"
+  >
+    <input
+      aria-describedby="confirmation-input"
+      aria-label="Confirm Password"
+      className="form-control"
+      data-testid="confirm-password-input"
+      onChange={[Function]}
+      placeholder="Confirm Password"
+      type="password"
+      value=""
+    />
+  </div>
+  <button
+    className="btn btn-primary"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Submit
+  </button>
+</div>
+`;
+
+exports[`Welcome Page Create Account Dropdown on Welcome Page should render the usual html without crashing 1`] = `
+<div
+  className="mx-2"
+>
+  <div
+    className="mb-3 input-group"
+  >
+    <input
+      aria-describedby="email-input"
+      aria-label="Email"
+      className="form-control"
+      data-testid="email-input"
+      onChange={[Function]}
+      placeholder="Email"
+      type="email"
+      value=""
+    />
+  </div>
+  <div
+    className="mb-3 input-group"
+  >
+    <input
+      aria-describedby="password-input"
+      aria-label="Password"
+      className="form-control"
+      data-testid="password-input"
+      onChange={[Function]}
+      placeholder="Password"
+      type="password"
+      value=""
+    />
+  </div>
+  <div
+    className="mb-3 input-group"
+  >
+    <input
+      aria-describedby="confirmation-input"
+      aria-label="Confirm Password"
+      className="form-control"
+      data-testid="confirm-password-input"
+      onChange={[Function]}
+      placeholder="Confirm Password"
+      type="password"
+      value=""
+    />
+  </div>
+  <button
+    className="btn btn-primary"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Submit
+  </button>
+</div>
+`;
+
+exports[`Welcome Page should render the usual contents without crashing 1`] = `
+<div
+  align="center"
+  className="WelcomeBody container-fluid h-100"
+>
+  <h1>
+    Welcome to SalaryCloud
+  </h1>
+  <div
+    className="dropdown"
+    onKeyDown={[Function]}
+  >
+    <button
+      aria-expanded={false}
+      aria-haspopup={true}
+      className="dropdown-toggle btn btn-success"
+      disabled={false}
+      id="dropdown-basic"
+      onClick={[Function]}
+      type="button"
+    >
+      Create Account
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Welcome Page should render the usual html without crashing 1`] = `
+<div
+  align="center"
+  className="WelcomeBody container-fluid h-100"
+>
+  <h1>
+    Welcome to SalaryCloud
+  </h1>
+  <div
+    className="dropdown"
+    onKeyDown={[Function]}
+  >
+    <button
+      aria-expanded={false}
+      aria-haspopup={true}
+      className="dropdown-toggle btn btn-success"
+      disabled={false}
+      id="dropdown-basic"
+      onClick={[Function]}
+      type="button"
+    >
+      Create Account
+    </button>
+  </div>
+</div>
+`;
+
+exports[`should render correctly 1`] = `
+<div
+  align="center"
+  className="WelcomeBody container-fluid h-100"
+>
+  <h1>
+    Welcome to SalaryCloud
+  </h1>
+  <div
+    className="dropdown"
+    onKeyDown={[Function]}
+  >
+    <button
+      aria-expanded={false}
+      aria-haspopup={true}
+      className="dropdown-toggle btn btn-success"
+      disabled={false}
+      id="dropdown-basic"
+      onClick={[Function]}
+      type="button"
+    >
+      Create Account
+    </button>
+  </div>
+</div>
+`;
