@@ -29,26 +29,27 @@ describe('Update Integration Tests', () => {
     beforeAll(async () => {
         // Create User with API call
         await usersApi.createUser(mockLoginData).then(response => {
-            console.log('User created with userID: ' + response.data.userID + ' and anonID: ' + response.data.anonID);
-            USERID = response.data.userID;
-            ANONID = response.data.anonID;
+            console.log(response);
+            console.log('User created with userID: ' + response.data.userId + ' and anonID: ' + response.data.anonId);
+            USERID = response.data.userId;
+            ANONID = response.data.anonId;
         }).catch(error => {
           console.log(error);
         });
     });
 
-    // afterAll(async () => {
-    //     await usersApi.deleteUser(USERID, ANONID).then((response) => {
-    //         if (response.status === 200) {
-    //             console.log("User Deleted Successfully!");;
-    //         } else {
-    //             console.log("Invalid HTTP response code!");
-    //             console.log(response.status);
-    //         }
-    //     }).catch(error => {
-    //         console.log(error);
-    //     });
-    // });
+    afterAll(async () => {
+        await usersApi.deleteUser(USERID, ANONID).then((response) => {
+            if (response.status === 200) {
+                console.log("User Deleted Successfully!");;
+            } else {
+                console.log("Invalid HTTP response code!");
+                console.log(response.status);
+            }
+        }).catch(error => {
+            console.log(error);
+        });
+    });
 
     it('App can Successfully Login and Logout an existing User', async ()=> {
         const { debug, getByText, getByTestId } = render(<App />);
