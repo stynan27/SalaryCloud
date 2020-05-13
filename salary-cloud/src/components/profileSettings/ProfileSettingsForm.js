@@ -58,7 +58,7 @@ class ProfileSettingsForm extends React.Component {
         await usersApi.updateAnonUser(anonId, anonData).then(response => {
             if (response.status === 200) {
                 this.setState({ loading: false});
-                console.log("User Updated Successfully!");
+                window.alert("User Updated Successfully!");
             } else {
                 console.log("Invalid HTTP response code!");
                 console.log(response.status);
@@ -116,7 +116,7 @@ class ProfileSettingsForm extends React.Component {
                                 </InputGroup.Prepend>
                                 <FormControl
                                     type="number"
-                                    placeholder={salary}
+                                    value={salary}
                                     onChange={this.handleInputChange}
                                     min="1000"
                                     max="1000000000000"
@@ -137,7 +137,7 @@ class ProfileSettingsForm extends React.Component {
                             <InputGroup className="mb-3">
                                 <FormControl
                                     type="search"
-                                    placeholder={employer} 
+                                    value={employer} 
                                     onChange={this.handleInputChange}
                                     aria-label="currentCompany"
                                     aria-describedby="current-company-input"
@@ -153,7 +153,7 @@ class ProfileSettingsForm extends React.Component {
                             <InputGroup className="mb-3">
                                 <FormControl
                                     type="number"
-                                    placeholder={yearsOfExp}
+                                    value={yearsOfExp}
                                     onChange={this.handleInputChange}
                                     min="00"
                                     max="100"
