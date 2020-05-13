@@ -245,10 +245,8 @@ describe('Update Integration Tests', () => {
         expect(positionInput).toHaveValue(mockProfileData['position']);
         expect(stateInput).toHaveValue(mockProfileData['state']);
         expect(cityInput).toHaveValue(mockProfileData['city']);
-
-
-        // expect(salaryInput).toHaveValue(mockProfileData['salary']);
+        expect(salaryInput).toHaveValue(mockProfileData['salary']);
         expect(companyInput).toHaveValue(mockProfileData['company']);
-        // expect(experienceInput).toHaveValue(mockProfileData['yearsOfExp']);
+        expect(experienceInput).toHaveValue(mockProfileData['yearsOfExp']);
     });
 });
