@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ReactDOM from 'react-dom';
-import { render, cleanup, fireEvent, wait } from '@testing-library/react';
+import { render, cleanup, fireEvent, wait, waitForElementToBeRemoved } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 import usersApi from '../../api/users-api';
@@ -29,7 +29,6 @@ describe('Update Integration Tests', () => {
     beforeAll(async () => {
         // Create User with API call
         await usersApi.createUser(mockLoginData).then(response => {
-            console.log(response);
             console.log('User created with userID: ' + response.data.userId + ' and anonID: ' + response.data.anonId);
             USERID = response.data.userId;
             ANONID = response.data.anonId;
@@ -153,10 +152,6 @@ describe('Update Integration Tests', () => {
         // Submit form
         fireEvent.click(submitSettingsButton);
 
-        // Need a way to check this //
-        //
-        //
-
         // Check LogOut functionality
         const logOutButton = getByTestId("logout-link");
 
@@ -174,75 +169,86 @@ describe('Update Integration Tests', () => {
         expect(getByTestId('welcome-header').innerHTML).toMatch('Welcome to SalaryCloud');
     });
 
-    // it('App can Successfully Display Updates made to an existing User Profile', async ()=> {
-    //     // Login 
-    //     const { debug, getByText, getByTestId } = render(<App />);
+    it('App can Successfully Display Updates made to an existing User Profile', async ()=> {
+        // Login 
+        const { debug, getByText, queryByText, getByTestId } = render(<App />);
 
-    //     const logInDropdownButton = getByTestId("logIn-dropdown-button");
+        const logInDropdownButton = getByTestId("logIn-dropdown-button");
 
-    //     fireEvent.click(logInDropdownButton);
+        fireEvent.click(logInDropdownButton);
 
-    //     const emailInput = getByTestId('logIn-email-input');
-    //     const passwordInput = getByTestId('logIn-password-input');
-    //     const submitButton = getByTestId('logIn-submit-button');
+        const emailInput = getByTestId('logIn-email-input');
+        const passwordInput = getByTestId('logIn-password-input');
+        const submitButton = getByTestId('logIn-submit-button');
 
-    //     fireEvent.change(emailInput, { target: { value: mockLoginData['email'] } });
-    //     fireEvent.change(passwordInput, { target: { value: mockLoginData['hash'] } });
+        fireEvent.change(emailInput, { target: { value: mockLoginData['email'] } });
+        fireEvent.change(passwordInput, { target: { value: mockLoginData['hash'] } });
 
-    //     expect(emailInput).toHaveValue(mockLoginData['email']);
-    //     expect(passwordInput).toHaveValue(mockLoginData['hash']);
-
-    //     global.alert = jest.fn();
+        expect(emailInput).toHaveValue(mockLoginData['email']);
+        expect(passwordInput).toHaveValue(mockLoginData['hash']);
     
-    //     fireEvent.click(submitButton);
+        global.alert = jest.fn();
 
-    //     try {
-    //         // Wait for Profile DropDown button to load
-    //         await wait(() => getByTestId("profile-dropdown-button"));
-    //     } catch (err) {
-    //         debug();
-    //         throw err;
-    //     }
+        fireEvent.click(submitButton);
 
-    //     fireEvent.click(getByTestId("profile-dropdown-button"));
+        try {
+            // Wait for Profile DropDown button to load
+            await wait(() => getByTestId("profile-dropdown-button"));
+        } catch (err) {            
+            debug();
+            throw err;
+        }
 
-    //     // Check for profile dropdown to load
-    //     try {
-    //         // Wait for Redirection to Profile Settings Page
-    //         await wait(() => getByTestId("profile-settings-link"));
-    //     } catch (err) {
-    //         debug();
-    //         throw err;
-    //     }
+        fireEvent.click(getByTestId("profile-dropdown-button"));
 
-    //     const linkToProfileSettings = getByTestId("profile-settings-link");
+        // Check for profile dropdown to load
+        try {
+            // Wait for Redirection to Profile Settings Page
+            await wait(() => getByTestId("profile-settings-link"));
+        } catch (err) {
+            debug();
+            throw err;
+        }
 
-    //     fireEvent.click(linkToProfileSettings);
+        const linkToProfileSettings = getByTestId("profile-settings-link");
 
-    //     // Check for Profile Settings text
-    //     try {
-    //         // Wait for Redirection to Profile Settings Page
-    //         await wait(() => getByTestId("profile-settings-header"));
-    //     } catch (err) {
-    //         debug();
-    //         throw err;
-    //     }
+        fireEvent.click(linkToProfileSettings);
 
-    //     expect(getByTestId("profile-settings-header").innerHTML).toMatch('Profile Settings');
+        // Check for Profile Settings text
+        try {
+            // Wait for Redirection to Profile Settings Page
+            await wait(() => getByTestId("profile-settings-header"));
+        } catch (err) {
+            debug();
+            throw err;
+        }
 
-    //     // Match existing input's with Submitted input data
-    //     const positionInput = getByTestId('profile-settings-positionTitle-input');
-    //     const stateInput = getByTestId('profile-settings-state-input');
-    //     const cityInput = getByTestId('profile-settings-city-input');
-    //     const salaryInput = getByTestId('profile-settings-salary-input');
-    //     const companyInput = getByTestId('profile-settings-company-input');
-    //     const experienceInput = getByTestId('profile-settings-yearsofexp-input');
+        expect(getByTestId("profile-settings-header").innerHTML).toMatch('Profile Settings');
 
-    //     expect(positionInput).toHaveValue(mockProfileData['position']);
-    //     expect(stateInput).toHaveValue(mockProfileData['state']);
-    //     expect(cityInput).toHaveValue(mockProfileData['city']);
-    //     expect(salaryInput).toHaveValue(mockProfileData['salary']);
-    //     expect(companyInput).toHaveValue(mockProfileData['company']);
-    //     expect(experienceInput).toHaveValue(mockProfileData['yearsOfExp']);
-    // });
+        // Wait for positionTitle to change to 'Software Engineer'
+        try {
+            await wait(() => getByTestId('profile-settings-positionTitle-input'));
+            await wait(() => expect(getByTestId('profile-settings-positionTitle-input')).toHaveValue(mockProfileData['position']));
+        } catch (err) {
+            debug();
+            throw err;
+        }
+
+        // Match existing input's with Submitted input data
+        const positionInput = getByTestId('profile-settings-positionTitle-input');
+        const stateInput = getByTestId('profile-settings-state-input');
+        const cityInput = getByTestId('profile-settings-city-input');
+        const salaryInput = getByTestId('profile-settings-salary-input');
+        const companyInput = getByTestId('profile-settings-company-input');
+        const experienceInput = getByTestId('profile-settings-yearsofexp-input');
+
+        expect(positionInput).toHaveValue(mockProfileData['position']);
+        expect(stateInput).toHaveValue(mockProfileData['state']);
+        expect(cityInput).toHaveValue(mockProfileData['city']);
+
+
+        // expect(salaryInput).toHaveValue(mockProfileData['salary']);
+        expect(companyInput).toHaveValue(mockProfileData['company']);
+        // expect(experienceInput).toHaveValue(mockProfileData['yearsOfExp']);
+    });
 });
