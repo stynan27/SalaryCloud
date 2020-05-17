@@ -54,7 +54,7 @@ describe ('Welcome Page', () => {
       expect(screen.queryByText(/submit/i)).toBeNull();
     });
 
-    it ('should create a Dropdown Form when Create Account is clicked', () => {
+    it ('should display the Dropdown Form  when the Create Account button is clicked', () => {
       render(<WelcomeBody />);
       const dropdownButton = screen.queryByText(/create account/i);
       expect(dropdownButton).not.toBeNull();
@@ -70,9 +70,35 @@ describe ('Welcome Page', () => {
       expect(passwordConfInput).not.toBeNull();
       const submitButton = screen.queryByText(/submit/i);
       expect(passwordConfInput).not.toBeNull();
-      console.log(screen.debug());
     });
 
+    it ('should retain user text input before the form is submitted', () => {
+      const form = shallow(<DropDownForm />);
+
+      // Init state of each input should be ''
+      expect(form.state().email).toEqual('');
+      expect(form.state().password).toEqual('');
+      expect(form.state().passwordConfirmation).toEqual('');
+
+      /*
+      Simulate typing into input boxes.
+      Why? We want to insure that inputs are not immediately following an
+      onChange event due to a browser refresh
+      or even the event handler itself
+      */
+      console.log(form.debug());
+      const inputBoxes = form.find('FormControl');
+      expect(inputBoxes).toHaveLength(3);
+      // Assume Input Order of Email, Password, Confirm Password
+      inputBoxes.at(0).simulate('change', { target: { value: 'mockInput' } });
+      expect(form.state().email).toEqual('mockInput');
+
+      inputBoxes.at(1).simulate('change', { target: { value: 'mockInput' } });
+      expect(form.state().password).toEqual('mockInput');
+
+      inputBoxes.at(2).simulate('change', { target: { value: 'mockInput' } });
+      expect(form.state().passwordConfirmation).toEqual('mockInput');
+    });
   });
 
 });
