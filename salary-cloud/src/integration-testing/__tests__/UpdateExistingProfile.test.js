@@ -112,29 +112,13 @@ describe('Update Integration Tests', () => {
         const experienceInput = getByTestId('profile-settings-yearsofexp-input');
         const submitSettingsButton = getByTestId('profile-settings-submit-button');
 
-        // click and then select corresponding option
-        // fireEvent.change(positisonInput, { target: { value: mockProfileData['position'] } });
-        // fireEvent.change(stateInput, { target: { value: mockProfileData['state'] } });
-        // fireEvent.change(cityInput, { target: { value: mockProfileData['city'] } });
-
         // TODO: Figure out how to select an option via clicking
-        // fireEvent.click(positionInput);
-        // fireEvent.keyDown(positionInput, {keyCode: 40 });
-        // await wait(() => getByText("Software Engineer"));
-        // fireEvent.click(getByText("Software Engineer"));
         positionInput.value = "Software Engineer";
         fireEvent.change(positionInput, {target: {value: "Software Engineer"}});
 
-        //fireEvent.click(stateInput);
-        //fireEvent.keyDown(stateInput, {key: 'ArrowDown'});
-        // await wait(() => getByText('New York'));
-        // fireEvent.click(getByText("New York"));
         stateInput.value = "New York";
         fireEvent.change(stateInput, {target: {value: "New York"}});
 
-        // fireEvent.click(cityInput);
-        // await wait(() => getByText('Buffalo'));
-        // fireEvent.click(getByText("Buffalo"));
         cityInput.value = "Buffalo";
         fireEvent.change(cityInput, {target: {value: "Buffalo"}});
 
