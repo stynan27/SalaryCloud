@@ -48,6 +48,7 @@ exports[`Welcome Page Create Account DropDownForm on Welcome Page should render 
   </div>
   <button
     className="btn btn-primary"
+    data-testid="submit-button"
     disabled={false}
     onClick={[Function]}
     type="button"
@@ -62,7 +63,9 @@ exports[`Welcome Page should render the usual html without crashing 1`] = `
   align="center"
   className="WelcomeBody container-fluid h-100"
 >
-  <h1>
+  <h1
+    data-testid="welcome-header"
+  >
     Welcome to SalaryCloud
   </h1>
   <div
@@ -73,6 +76,7 @@ exports[`Welcome Page should render the usual html without crashing 1`] = `
       aria-expanded={false}
       aria-haspopup={true}
       className="dropdown-toggle btn btn-success"
+      data-testid="dropdown-button"
       disabled={false}
       id="dropdown-basic"
       onClick={[Function]}

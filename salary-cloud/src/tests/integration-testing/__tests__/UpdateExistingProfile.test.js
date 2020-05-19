@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 import { render, cleanup, fireEvent, wait, waitForElementToBeRemoved } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
-import usersApi from '../../api/users-api';
-import App from '../../App';
-import ProfileSettingsBody from '../../components/profileSettings/ProfileSettingsBody';
+import usersApi from '../../../api/users-api';
+import App from '../../../App';
+import ProfileSettingsBody from '../../../components/profileSettings/ProfileSettingsBody';
 
 const mockLoginData = {
     email: "testEmail2@gmail.com",
@@ -19,7 +19,7 @@ const mockProfileData = {
     city: 'Buffalo',
     salary: 60000,
     company: 'Some Company LTD',
-    yearsOfExp: 2  
+    yearsOfExp: 2
 };
 
 let USERID = '';
@@ -66,8 +66,8 @@ describe('Update Integration Tests', () => {
 
         expect(emailInput).toHaveValue(mockLoginData['email']);
         expect(passwordInput).toHaveValue(mockLoginData['hash']);
-    
-        fireEvent.click(submitButton); 
+
+        fireEvent.click(submitButton);
 
         try {
             // Wait for Profile DropDown button to load
@@ -170,7 +170,7 @@ describe('Update Integration Tests', () => {
     });
 
     it('App can Successfully Display Updates made to an existing User Profile', async ()=> {
-        // Login 
+        // Login
         const { debug, getByText, queryByText, getByTestId } = render(<App />);
 
         const logInDropdownButton = getByTestId("logIn-dropdown-button");
@@ -186,7 +186,7 @@ describe('Update Integration Tests', () => {
 
         expect(emailInput).toHaveValue(mockLoginData['email']);
         expect(passwordInput).toHaveValue(mockLoginData['hash']);
-    
+
         global.alert = jest.fn();
 
         fireEvent.click(submitButton);
@@ -194,7 +194,7 @@ describe('Update Integration Tests', () => {
         try {
             // Wait for Profile DropDown button to load
             await wait(() => getByTestId("profile-dropdown-button"));
-        } catch (err) {            
+        } catch (err) {
             debug();
             throw err;
         }

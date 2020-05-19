@@ -1,6 +1,6 @@
 import React from 'react';
-import WelcomeBody from '../components/welcome/WelcomeBody';
-import DropDownForm from '../components/welcome/DropDownForm';
+import WelcomeBody from '../../components/welcome/WelcomeBody';
+import DropDownForm from '../../components/welcome/DropDownForm';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 
@@ -86,7 +86,6 @@ describe ('Welcome Page', () => {
       onChange event due to a browser refresh
       or even the event handler itself
       */
-      console.log(form.debug());
       const inputBoxes = form.find('FormControl');
       expect(inputBoxes).toHaveLength(3);
       // Assume Input Order of Email, Password, Confirm Password

@@ -3,8 +3,8 @@ import React from 'react'
 import { Router, Route, Switch } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 
-import DropDownForm from '../components/welcome/DropDownForm';
-import ProfileSettingsBody from '../components/profileSettings/ProfileSettingsBody';
+import DropDownForm from '../../components/welcome/DropDownForm';
+import ProfileSettingsBody from '../../components/profileSettings/ProfileSettingsBody';
 
 const history = createMemoryHistory()
 
