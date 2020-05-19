@@ -58,7 +58,7 @@ class ProfileSettingsForm extends React.Component {
         await usersApi.updateAnonUser(anonId, anonData).then(response => {
             if (response.status === 200) {
                 this.setState({ loading: false});
-                console.log("User Updated Successfully!");
+                window.alert("User Updated Successfully!");
             } else {
                 console.log("Invalid HTTP response code!");
                 console.log(response.status);
@@ -116,12 +116,13 @@ class ProfileSettingsForm extends React.Component {
                                 </InputGroup.Prepend>
                                 <FormControl
                                     type="number"
-                                    placeholder={salary}
+                                    value={salary}
                                     onChange={this.handleInputChange}
                                     min="1000"
                                     max="1000000000000"
                                     aria-label="currentSalary"
                                     aria-describedby="current-salary-input"
+                                    data-testid="profile-settings-salary-input" 
                                 />
                                 <InputGroup.Append>
                                     <InputGroup.Text>/yr</InputGroup.Text>
@@ -136,10 +137,11 @@ class ProfileSettingsForm extends React.Component {
                             <InputGroup className="mb-3">
                                 <FormControl
                                     type="search"
-                                    placeholder={employer} 
+                                    value={employer} 
                                     onChange={this.handleInputChange}
                                     aria-label="currentCompany"
                                     aria-describedby="current-company-input"
+                                    data-testid="profile-settings-company-input" 
                                 />
                             </InputGroup>
                         </Form.Group>
@@ -151,12 +153,13 @@ class ProfileSettingsForm extends React.Component {
                             <InputGroup className="mb-3">
                                 <FormControl
                                     type="number"
-                                    placeholder={yearsOfExp}
+                                    value={yearsOfExp}
                                     onChange={this.handleInputChange}
                                     min="00"
                                     max="100"
                                     aria-label="currentExperienceLevel"
                                     aria-describedby="current-experience-input"
+                                    data-testid="profile-settings-yearsofexp-input" 
                                 />
                                 <InputGroup.Append>
                                     <InputGroup.Text>years</InputGroup.Text>
@@ -166,13 +169,13 @@ class ProfileSettingsForm extends React.Component {
                     </div>
 
                     <div className="mt-1 mb-1">
-                    <Button variant="primary" type="submit" onSubmit={this.handleSubmitClick}>
+                    <Button data-testid="profile-settings-submit-button" variant="primary" type="submit" onSubmit={this.handleSubmitClick}>
                         Submit
                     </Button>
                     </div>
 
                     <div className="mt-1 mb-1">
-                    <Button variant="danger" type="input" onClick={this.handleDeleteUser}>
+                    <Button data-testid="profile-settings-delete-button" variant="danger" type="input" onClick={this.handleDeleteUser}>
                         Delete Account
                     </Button>
                     </div>
