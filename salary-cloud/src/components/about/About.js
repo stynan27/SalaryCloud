@@ -7,11 +7,13 @@ function About() {
   return (
     <div className="container-fluid mt-2 mb-2 pl-5 pr-5 h-auto">
       <div className="row">
-        <div className="col pb-3 border-bottom-xs border-right-sm">
+        <div className="col pb-3 border-bottom-md border-right-md">
           <h1 className="h1"> Our Story... </h1>
-          <Image src={"/theBoys.jpg"} alt="theBoys" fluid thumbnail/>
+          <div className="text-center">
+            <Image className="w-90" src={"/theBoys.jpg"} alt="theBoys" fluid thumbnail/>
+          </div>
         </div>
-        <div className="col-8 pt-2 text-left">
+        <div className="col-md-8 pt-2 text-left">
           <h2 className="h2"> Two Fools </h2>
           <p>
             Our Story Begins with two friends, Seamus Tynan and Yesu Carter.
