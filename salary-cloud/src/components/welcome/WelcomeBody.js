@@ -7,10 +7,10 @@ import './welcome.css';
 function WelcomeBody(props) {
   return (
     <div className="WelcomeBody container-fluid h-100" align="center">
-        <h1>Welcome to SalaryCloud</h1>
+        <h1 data-testid="welcome-header">Welcome to SalaryCloud</h1>
 
         <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
+          <Dropdown.Toggle data-testid="dropdown-button" variant="success" id="dropdown-basic">
             Create Account
           </Dropdown.Toggle>
 

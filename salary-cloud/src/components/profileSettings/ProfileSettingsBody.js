@@ -26,7 +26,7 @@ function ProfileSettingsBody(props) {
   return (
     <Container className="ProfileSettings mt-2 mb-2"  align="center" fluid>
       <Row className="justify-content-center">
-        <h1 className="mt-3">Profile Settings</h1>
+        <h1 data-testid="profile-settings-header" className="mt-3">Profile Settings</h1>
       </Row>
 
       <Row className="justify-content-center">
