@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const usersApi = axios.create({
-  baseURL: 'http://localhost:8000/users'
+	baseURL: '/users'
 });
 
 export const createUser = (params) => usersApi.post('/create', params);

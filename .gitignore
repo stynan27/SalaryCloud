@@ -1,0 +1,4 @@
+salary-cloud/.env
+salary-cloud/package-lock.json
+salary-cloud/build/
+salary-cloud/node_modules/

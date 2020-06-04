@@ -93,12 +93,22 @@ class ProfileSettingsForm extends React.Component {
     render() {
         const { anonData } = this.state;
 
-        const position = (anonData['positionTitle']) ? anonData['positionTitle'] : "...";
-        const state = (anonData['location']) ? anonData['location']['state'].toString() : "...";
-        const city = (anonData['location']) ? anonData['location']['city'].toString() : "...";
-        const salary = (anonData['salary']) ? anonData['salary'].toString() : "1000";
-        const employer = (anonData['employer']) ? anonData['employer'] : "Enter company name here...";
-        const yearsOfExp = (anonData['yearsOfExp']) ? anonData['yearsOfExp'].toString() : "0";
+	let position = "...";
+        let state = "...";
+        let city = "...";
+        let salary = "1000";
+        let employer = "Enter company name here...";
+        let yearsOfExp = "0";
+
+        if (typeof anonData !== 'undefined')
+        {
+            position = (anonData['positionTitle']) ? anonData['positionTitle'] : position;
+            state = (anonData['location']) ? anonData['location']['state'].toString() : state;
+            city = (anonData['location']) ? anonData['location']['city'].toString() : city;
+            salary = (anonData['salary']) ? anonData['salary'].toString() : salary;
+            employer = (anonData['employer']) ? anonData['employer'] : employer;
+            yearsOfExp = (anonData['yearsOfExp']) ? anonData['yearsOfExp'].toString() : yearsOfExp;
+        } 
 
         return (
             <div className="ProfileSettingsForm">
