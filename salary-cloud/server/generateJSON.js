@@ -2,7 +2,10 @@ const fs = require('fs');
 
 const state_codes_to_names_json = 'state_codes_to_names.json';
 const county_names_to_codes_json = 'county_names_to_codes.json';
-const CSV_FILE = 'state-geocodes-v2018.csv';
+const county_codes_to_names_json = 'county_codes_to_names.json';
+
+const state_geocodes_csv = 'state-geocodes-v2018.csv';
+const county_geocodes_csv = 'all-geocodes-v2018.csv';
 const SHOULD_SORT = false;
 
 function state_codes_to_names(json, col_array) {
@@ -77,55 +80,7 @@ function generateJSON(csvFileName, newFileName, generatorFunc) {
   });
 }
 
-// function generateJSON(csvFileName, newFileName) {
-//   fs.exists(csvFileName, (exists) => {
-//     if (!exists) {
-//       console.log(`CSV File titled ${csvFileName} does not exist, cannot be read.`);
-//       return;
-//     }
-//     fs.readFile(csvFileName, 'utf-8', (error, csvString) => {
-//       if (error) {
-//         console.log(error);
-//         return;
-//       }
-//       // \r is similar to the new line character \n, but we don't need it
-//       csvString = csvString.replace(/\r/g, '');
-//       let lines = csvString.split('\n');
-//       lines.forEach((line, i) => {
-//         if (line.length < 1) {
-//           return;
-//         }
-//         let cols = line.split(',');
-//         let key = cols[KEY_COL];
-//         let val = cols[VAL_COL];
-//
-//         if (!json[key]) {
-//           json[key] = val;
-//         } else {
-//           if (Array.isArray(json[key])) {
-//             json[key].push(val);
-//           } else {
-//             json[key] = [val];
-//           }
-//         }
-//       });
-//
-//       if (SHOULD_SORT) {
-//         // TODO: sort file
-//       } else {
-//         fs.writeFile(newFileName, JSON.stringify(json), (error, result) => {
-//           if (error) {
-//             console.log(error);
-//             return;
-//           }
-//         });
-//       }
-//     });
-//   });
-// }
-
 const SPLIT_STEP = 6;
-
 /*
   Creates a copy of a given CSV File where a given column is split on the first instance of a digit and a new line character is inserted at the beginning of the new column. This function assumes that the csv rows are not separated and will insert the new line character where the last alphabetical character is adjacent to the first digit every SPLIT_STEP columns.
 */
@@ -156,19 +111,29 @@ function cleanUp(csvFileName, newFileName) {
         // We have a county name that includes a comma...
         // Will need to merge cells based on the start and end quotes
         if (target.charAt(0) == '"') {
+          console.log(`Double Quote found for ${target}`);
           var j = i + 1;
           let found = false;
           while (j < cells.length && !found) {
             let cell = cells[j];
+            console.log(`Examining Cell ${cell}`);
             cell = cell.replace(/\r/g, '');
-            if (cell.search('\"') == -1) {
+            if (cell.search('\"') === -1) {
               j++;
             } else {
+              console.log(`End Quote for ${target} found in ${cell}`);
               found = true;
               // j+1 b/c end param is exclusive
-              cells[i] = cells[i] + cell.slice(i, j+1);
+              var targetCells = cells.slice(i, j+1);
+              const squash = (accumulator, currentVal) => {
+                return accumulator + currentVal;
+              };
+
+              let out = targetCells.reduce(squash);
+              cells[i] = out;
               // Remove the values we just merged
               cells.splice(i+1, j-i);
+              target = cells[i];
             }
           }
           if (!found) {
@@ -180,6 +145,7 @@ function cleanUp(csvFileName, newFileName) {
 
 
         if (splitAt == -1) {
+          console.log(`No adjacent digits found, nothing to split at ${target}`);
           // Nothing to split here...
           // Just insert the new line after the next comma
           cells.splice(i+1, 0, "\n");
@@ -206,5 +172,6 @@ function cleanUp(csvFileName, newFileName) {
   });
 }
 
-// cleanUp('all-geocodes-v2018.csv', 'county_codes_to_names.csv');
-// generateJSON('county_codes_to_names.csv', 'county_codes_to_names.json', state_codes_to_counties);
+cleanUp(county_geocodes_csv, 'county_codes_to_names.csv');
+generateJSON('county_codes_to_names.csv', county_codes_to_names_json, state_codes_to_counties)
+// cleanUp('test_og.csv', 'test_clean.csv');
