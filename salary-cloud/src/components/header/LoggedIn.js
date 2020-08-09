@@ -21,6 +21,10 @@ function LoggedIn(props) {
         </Dropdown>
       </Nav.Item>
 
+      <Nav.Item className="mr-2">
+        <Nav.Link data-testid="salary-link" className="btn btn-success text-white" role="button" href="/Salary"> My Salary </Nav.Link>
+      </Nav.Item>
+
       <Nav.Item>
         <Nav.Link data-testid="logout-link" className="btn btn-success text-white" role="button" onClick={logOutHandler}> Log Out </Nav.Link>
       </Nav.Item>

@@ -8,6 +8,7 @@ import ProfileSettingsBody from './components/profileSettings/ProfileSettingsBod
 import MyProfileBody from './components/myProfile/MyProfileBody';
 import Footer from './components/footer/Footer';
 import About from './components/about/About';
+import SuggestSalaryBody from './components/suggestSalary/SuggestSalaryBody';
 
 class App extends React.Component {
   constructor(props) {
@@ -45,13 +46,18 @@ class App extends React.Component {
           <Header user={this.state.user} loggedIn={this.state.loggedIn} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut}/>
           <Switch>
             <Route path='/' exact render={(props) => <WelcomeBody {...props} handleLogIn={this.handleLogIn}/>}/>
+
             <Route path='/Welcome' exact render={(props) => <WelcomeBody {...props} loggedIn={this.state.loggedIn} handleLogIn={this.handleLogIn}/>}/>
-            <Route path='/ProfileSettings' exact render={(props) => <ProfileSettingsBody {...props} loggedIn={this.state.loggedIn} 
+
+            <Route path='/ProfileSettings' exact render={(props) => <ProfileSettingsBody {...props} loggedIn={this.state.loggedIn}
                 user={this.state.user} handleLogOut={this.handleLogOut}/>}/>
 
-            <Route path='/MyProfile' exact render={(props) => <MyProfileBody {...props} loggedIn={this.state.loggedIn} 
-                user={this.state.user}/>}/>
+            <Route path='/MyProfile' exact render={(props) => <MyProfileBody {...props} loggedIn={this.state.loggedIn} user={this.state.user}/>}/>
+
+            <Route path='/Salary' exact render={(props) => <SuggestSalaryBody {...props} loggedIn={this.state.loggedIn} user={this.state.user}/>}/>
+
             <Route path='/About' exact component={About}/>
+            
           </Switch>
           <Footer />
         </div>
