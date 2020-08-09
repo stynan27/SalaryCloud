@@ -174,4 +174,3 @@ function cleanUp(csvFileName, newFileName) {
 
 cleanUp(county_geocodes_csv, 'county_codes_to_names.csv');
 generateJSON('county_codes_to_names.csv', county_codes_to_names_json, state_codes_to_counties)
-// cleanUp('test_og.csv', 'test_clean.csv');
