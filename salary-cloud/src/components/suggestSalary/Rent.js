@@ -11,7 +11,6 @@ class Rent extends React.Component {
     super(props);
     this.state = {
       stateCode: "",
-      county: "",
       counties: Object,
       countyCode: "",
       subCountySelected: false
@@ -42,7 +41,8 @@ class Rent extends React.Component {
         subCountySelected: false
       });
     }
-    if (name.localeCompare("county")) {
+
+    if (name.localeCompare("countyCode")) {
       this.setState({
         subCountySelected: false
       });
@@ -69,7 +69,6 @@ class Rent extends React.Component {
     }));
   }
 
-
   render() {
     let states = this.generateStatesDropdown();
 
@@ -87,7 +86,7 @@ class Rent extends React.Component {
           return <option key={k-1} value={key}> {name} </option>;
         }));
       } else {
-        if (key.localeCompare(this.state.countyCode)) {
+        if (key.localeCompare(this.state.countyCode) === 0) {
           counties.push(<option key={i} value={key} selected> {this.state.counties[key]} </option>);
         } else {
           counties.push(<option key={i} value={key}> {this.state.counties[key]} </option>);
@@ -109,7 +108,7 @@ class Rent extends React.Component {
 
         <Form.Group>
           <Form.Label> County </Form.Label>
-          <Form.Control as="select" name="county"
+          <Form.Control as="select" name="countyCode"
           onChange={this.handleSelect} custom>
             {counties}
           </Form.Control>
