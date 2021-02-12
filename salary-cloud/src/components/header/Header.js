@@ -72,7 +72,7 @@ class Header extends React.Component {
           <Navbar className="border-bottom border-success" bg="light" variant="light">
             <Navbar.Brand className="mr-auto">
               <h1>
-                <Link to="/Welcome">SalaryCloud</Link>
+                <Link to="/">SalaryCloud</Link>
               </h1>
             </Navbar.Brand>
             <LoggedIn handleLogOut={this.props.handleLogOut}/>

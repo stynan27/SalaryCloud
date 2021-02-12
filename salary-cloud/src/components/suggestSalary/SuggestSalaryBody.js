@@ -1,4 +1,6 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+
 import Rent from './Rent';
 import RentDisplay from './RentDisplay';
 
@@ -36,18 +38,23 @@ class SuggestSalaryBody extends React.Component {
   }
 
   render() {
-    return (
-      <Container className="suggestSalaryBody h-100" fluid>
-        <Row>
-          <Col md={3} xs={12}>
-            <Rent handleLocationSubmit={this.handleLocationSubmit}/>
-          </Col>
-          <Col md={9} xs={12} align="center">
-            <RentDisplay stateName={this.state.stateName} countyName={this.state.countyName}/>
-          </Col>
-        </Row>
-      </Container>
-    );
+    if (this.props.loggedIn) {
+      return (
+        <Container className="suggestSalaryBody h-100" fluid>
+          <Row>
+            <Col md={3} xs={12}>
+              <Rent handleLocationSubmit={this.handleLocationSubmit} user={this.state.user}/>
+            </Col>
+            <Col md={9} xs={12} align="center">
+              <RentDisplay stateName={this.state.stateName} countyName={this.state.countyName}/>
+            </Col>
+          </Row>
+        </Container>
+      );
+    } else {
+      return (<Redirect to="/Welcome"/>);
+    }
+
   }
 }
 

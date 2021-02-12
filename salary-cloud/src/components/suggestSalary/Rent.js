@@ -9,10 +9,21 @@ import county_codes_to_names from './county_codes_to_names_OG.json';
 class Rent extends React.Component {
   constructor(props) {
     super(props);
+    let stateCode = "";
+    let countyCode = "";
+    if (props.user) {
+      stateCode = props.user.stateCode;
+      countyCode = props.user.countyCode;
+      if (stateCode && countyCode) {
+        stateCode = "";
+        countyCode = "";
+      }
+    }
+
     this.state = {
-      stateCode: "",
+      stateCode: stateCode,
       counties: Object,
-      countyCode: "",
+      countyCode: countyCode,
       subCountySelected: false
     }
     this.handleSubmit = this.handleSubmit.bind(this);

@@ -9,6 +9,8 @@ const AnonUser = mongoose.Schema(
     location: {
         city: { type: String, trim: true },
         state: { type: String, trim: true },
+        countyCode: { type: String, trim: true},
+        stateCode: { type: String, trim: true}
     },
     yearsOfExp: { type: Number, trim: true },
   },

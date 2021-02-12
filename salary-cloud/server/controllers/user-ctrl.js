@@ -272,6 +272,7 @@ getIdsOnLogin = async (req, res) => {
     const userPassword = body.hash;
 
     await User.findOne({ email: userEmail }, (err, user) => {
+      console.log(user);
         if (err) {
             return res.status(400).json({ success: false, error: err });
         }
@@ -283,6 +284,8 @@ getIdsOnLogin = async (req, res) => {
         }
 
         bcrypt.compare(userPassword, user.hash, function(err, isPassword) {
+          console.log(userPassword);
+          console.log(user.hash);
             if (err) {
                 return res.status(400).json({ success: false, error: err });
             }
@@ -291,7 +294,7 @@ getIdsOnLogin = async (req, res) => {
                     if (err) {
                         return res.status(400).json({ success: false, error: err });
                     }
-                    AnonUser.findOne({ anonId: anonId }, (err, anonUser) => { 
+                    AnonUser.findOne({ anonId: anonId }, (err, anonUser) => {
                         if (err) {
                             return res.status(400).json({ success: false, error: err });
                         }

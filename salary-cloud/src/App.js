@@ -12,7 +12,7 @@ import SuggestSalaryBody from './components/suggestSalary/SuggestSalaryBody';
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       loggedIn: false,
       user: Object,
@@ -40,10 +40,12 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.loggedIn);
     return (
       <Router>
         <div className="App">
           <Header user={this.state.user} loggedIn={this.state.loggedIn} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut}/>
+
           <Switch>
             <Route path='/' exact render={(props) => <WelcomeBody {...props} handleLogIn={this.handleLogIn}/>}/>
 
@@ -57,7 +59,6 @@ class App extends React.Component {
             <Route path='/Salary' exact render={(props) => <SuggestSalaryBody {...props} loggedIn={this.state.loggedIn} user={this.state.user}/>}/>
 
             <Route path='/About' exact component={About}/>
-            
           </Switch>
           <Footer />
         </div>

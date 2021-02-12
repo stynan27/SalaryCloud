@@ -22,7 +22,7 @@ function LoggedIn(props) {
       </Nav.Item>
 
       <Nav.Item className="mr-2">
-        <Nav.Link data-testid="salary-link" className="btn btn-success text-white" role="button" href="/Salary"> My Salary </Nav.Link>
+        <Nav.Link data-testid="salary-link" className="btn btn-success text-white" role="button" as={Link} to="/Salary"> My Salary </Nav.Link>
       </Nav.Item>
 
       <Nav.Item>

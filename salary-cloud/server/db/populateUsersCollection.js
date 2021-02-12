@@ -6,14 +6,17 @@ const userData = {
     "user1": {
         "email": 'user1@gmail.com',
         "hash": 'sd48nioabsdg24r892yr',
+        "anonSalt": 'salt1'
     },
     "user2": {
         "email": 'user2@gmail.com',
         "hash": 's538ndkasndg0-i9235l',
+        "anonSalt": 'salt2'
     },
     "user3": {
         "email": 'user3@gmail.com',
         "hash": 'sopflighv893y21-=okr',
+        "anonSalt": 'salt3'
     },
 };
 
@@ -26,6 +29,8 @@ const anonUserData = {
         "location": {
             "city": "New York City",
             "state": "New York",
+            "countyCode": "061",
+            "stateCode": "36"
         },
         "yearsOfExp": 2,
     },
@@ -37,6 +42,8 @@ const anonUserData = {
         "location": {
             "city": "Seattle",
             "state": "Washington",
+            "countyCode": "033",
+            "stateCode": "53"
         },
         "yearsOfExp": 1,
     },
@@ -48,6 +55,8 @@ const anonUserData = {
         "location": {
             "city": "Atlanta",
             "state": "Georgia",
+            "countyCode": "13121",
+            "stateCode": "13"
         },
         "yearsOfExp": 3,
     }
@@ -57,6 +66,7 @@ function postUserData(data) {
     const user = new User(data);
     user.save()
     .catch(error => {
+      console.log(error);
       if (error.code == 11000) {
         console.log("User with email: " + user.email + " already exists, and cannot be duplicated.\n");
       } else {
