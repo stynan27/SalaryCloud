@@ -1,5 +1,8 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
 
 import LoggedIn from './LoggedIn';
@@ -81,16 +84,20 @@ class Header extends React.Component {
       );
     } else {
       return(
-        <div className="Header h-auto">
-          <Navbar className="border-bottom border-success" bg="light" variant="light">
-            <Navbar.Brand className="mr-auto">
-              <h1>
-                <Link to="/Welcome">SalaryCloud</Link>
-              </h1>
-            </Navbar.Brand>
-            <LoggedOut handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit}/>
-          </Navbar>
-        </div>
+        <Container className="border-bottom border-success navbar" fluid>
+          <Col>
+            <Row>
+              <Col className="navItem" sm={10}>
+                <h1>
+                  <Link className="Header" to="/Welcome">SalaryCloud</Link>
+                </h1>
+              </Col>
+              <Col className="navItem" sm={2}>
+                <LoggedOut handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit}/>
+              </Col>
+            </Row>
+          </Col>
+        </Container>
       );
     }
   }

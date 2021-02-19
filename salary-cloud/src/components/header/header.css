@@ -24,3 +24,23 @@ button.log-btn {
   color: black;
   text-decoration: none;
 }
+
+/* Header Text Link */
+.Header {
+  color: black;
+  text-decoration: none;
+}
+.Header:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.navItem {
+  text-align: left;
+}
+
+@media only screen and (max-width: 576px) {
+  .navItem {
+    text-align: center;
+  }
+}
