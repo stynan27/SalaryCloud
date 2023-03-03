@@ -1,7 +1,7 @@
 # SalaryCloud
 A MERN Application built from the ground up to help supply potential employees with relevant salary information based on filtered search criteria.
 
-[Example Image](https://github.com/stynan27/SalaryCloud/blob/master/SalaryCloud.PNG)
+![Example Image](SalaryCloud.PNG "SalaryCloud")
 
 ## Setup
 #### You will need to install the following before proceeding:
